@@ -12,8 +12,9 @@ reordered or dropped; the two-line block and the features are not.
 
 - Length is not what a rule costs. Reading the rules is one batched pass; deliberating over them
   is not, and a ruleset cut to a quarter of its size deliberated longer than the full one. What a
-  rule costs is how much it leaves to settle: the cheapest change measured added three lines
-  naming what to settle before writing, and halved deliberation without dropping a rule.
+  rule costs is how much it leaves to settle, which is why an instruction about the model's own
+  process binds when it terminates and not when it asks for less: naming what to settle before
+  writing, and how many things, halved deliberation without dropping a rule.
 - Put a requirement where the model acts on it, and know that emphasis inside a rule is zero-sum.
   Every gain measured so far came from moving a requirement rather than adding or removing one —
   but leading the variations rule with the count it kept getting wrong fixed the count and broke
@@ -22,12 +23,11 @@ reordered or dropped; the two-line block and the features are not.
 - An option offered is read as the thing to produce. Letting a critique close with a revised
   prompt "where a working prompt is in play" made a model answer with the prompt and no critique
   at all. Require a second output or drop it, never make it conditional.
-- A rule's section is its scope, for a rule the section leaves out. Folding a rule about style
-  names into Wording, which governs full prompts alone, stopped it reaching the bare style lines
-  under Alternatives; three faults have come from moving a rule between sections rather than from
-  any word in it. Restating a convention the model has already read is a different thing and does
-  nothing — revisions drop the fence a third of the time, and naming it in the revision rule moved
-  nothing over five seeds.
+- A rule's section is its scope, for a rule the section leaves out: folding a style-name rule into
+  Wording, which governs full prompts alone, stopped it reaching the bare style lines under
+  Alternatives, and three faults have come from moving a rule between sections rather than from
+  any word in it. Restating a convention the model has already read is different and does nothing
+  — naming the fence in the revision rule moved nothing over five seeds.
 - Where models keep producing what a rule forbids, try requiring it. The scene line was told to
   take no label, and five models kept writing "Scene:" anyway; labelling both lines beat
   forbidding one across three seeds and was perfect on two of them. A prohibition the models
@@ -37,9 +37,6 @@ reordered or dropped; the two-line block and the features are not.
   adds one.
 - State the prohibition alongside the criterion. Rules that say only what to do get violated;
   rules that say only what to avoid produce generate-and-filter loops.
-- Instructions about the model's own process bind weakly where they ask for less of something.
-  A scaffold that terminates is different and does bind: naming what to settle, and how many
-  things, gives deliberation a finish line it otherwise never reaches.
 - A rule the sampler cannot see can still be load-bearing. Capitalization after the label and the
   closing full stop change no render and fail often, so both were dropped; adherence to unrelated
   rules then fell in all three seeds, 97% to 94%. Output discipline behaves like a property of the
@@ -65,12 +62,10 @@ reordered or dropped; the two-line block and the features are not.
 Reading needs nothing installed, so it is always the first pass and never the one that gets
 skipped. Doing the work yourself is the second, and comes before any local model.
 
-- Run `score.py --selftest` and `strain.py --selftest` first; both need no server and each has
-  caught a fault that would otherwise have cost a sweep. The checks are tested against replies
-  whose faults are known, and the fixtures are tested too: they are built by mutating a good
-  reply, so a mutation that stops matching leaves a case that passes while testing nothing. That
-  happened silently once, when the good reply gained a label and a case went on asserting
-  against text no longer in it.
+- Run `score.py --selftest` and `strain.py --selftest` first; neither needs a server and each has
+  caught a fault that would have cost a sweep. They test the checks against replies whose faults
+  are known, and the fixtures too: a fixture is a mutated good reply, so a mutation that stops
+  matching leaves a case that passes while testing nothing.
 - Confirm every request type resolves to exactly one section and every section is reachable from
   a request type. Scan for terminology drift, and for rules referencing rules that have gone.
 - Reading settles whether a rule is coherent, never whether a model obeys it. Where that is the
@@ -106,21 +101,17 @@ what those cannot say.
   thing ending the deliberation.
 - A degree fails differently in each mode, so check the one being recommended. Style lines ran
   to about twenty-five words with thinking on and to forty without it, from the same rule.
-- Size does not predict whether a model can hold the rules. Across twenty-two measured, a 9B
-  kept 95% and a 33B kept 82%, and the lowest score of all belonged to an 8B.
-- Below about 8B the failure changes kind, not degree. A 4.7B swung 16 points across three seeds,
-  returned nothing usable for a request it had just answered perfectly, and answered one request
-  type in another's format. Test small models to find an ambiguous wording, never to decide
-  whether one works.
-- One seed is not a measurement, and a fixed seed can be quietly bad. Every comparison here
-  defaulted to seed 1 until the same rules and prompts scored 82% of checks at seed 1 and 97% at
-  seeds 2 and 3 — so every absolute rate read from it was pessimistic and every difference
-  noisier than it looked. `strain.py` pools three seeds by default for that reason.
-- The noise floor is high and was measured, not guessed: nothing sets a temperature, so a run
-  inherits the model's own, and three seeds with nothing else changed moved two models by 9 and
-  16 points out of 88. A sweep's aggregate is steady enough to read; one model's score is not,
-  and one model across two sweeps says nothing. Compare two wordings across seeds, and never
-  change a check while a comparison is running.
+- Size does not predict whether a model can hold the rules: a 9B kept 95% where a 33B kept 82%,
+  and the lowest score of all belonged to an 8B. Below about 8B the failure changes kind rather
+  than degree — a 4.7B returned nothing usable for a request it had just answered perfectly, and
+  answered one request type in another's format — so test small models to find an ambiguous
+  wording, never to decide whether one works.
+- One seed is not a measurement, and a fixed seed can be quietly bad. Nothing sets a temperature,
+  so a run inherits the model's own: three seeds with nothing else changed moved two models by 9
+  and 16 points out of 88, and every comparison here defaulted to seed 1 until the same rules
+  scored 82% of checks there and 97% at seeds 2 and 3. A sweep's aggregate is steady enough to
+  read; one model's score is not, and one model across two sweeps says nothing. `strain.py` pools
+  three seeds for that reason, and never change a check while a comparison is running.
 - Where a repeat does not reproduce, the machine cannot measure anything: say so and wait.
 - Warming hides what a user meets first. One model declined a composition judgment as subjective
   on three cold loads out of three and never once in twenty-two warm samples. Test the cold path
