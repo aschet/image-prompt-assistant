@@ -422,6 +422,12 @@ def selftest():
     stripping it, and an alternatives check that read the style line from a backtick pair and so
     measured the delimiter rather than the rule. Each would otherwise have cost a sweep."""
     failures = 0
+    # A fixture is built by mutating GOOD, so a mutation that stops matching leaves a case that
+    # passes while testing nothing. That happened once, silently, when GOOD gained its label.
+    for name, reply, expected in SELFTEST:
+        if expected and reply == GOOD:
+            print(f"  {name}: VACUOUS — expects {list(expected)} but is unmutated GOOD")
+            failures += 1
     for name, reply, expected in SELFTEST:
         got = prompt_checks(reply)
         want = ({k: False for k in got} if expected is None

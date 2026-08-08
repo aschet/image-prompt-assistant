@@ -89,6 +89,49 @@ def ask(model, system, text, ctx, seed, think, medium_given):
     }
 
 
+def selftest():
+    """Check this file's own helpers before it is trusted to measure anything.
+
+    score.py checks the rules; nothing checked the harness, and a harness that miscounts is
+    worse than no harness because its numbers look like measurements."""
+    import tempfile
+    bad = 0
+
+    def expect(name, got, want):
+        nonlocal bad
+        if got != want:
+            print(f"  {name}: expected {want!r}, got {got!r}")
+            bad += 1
+        else:
+            print(f"  {name}: ok")
+
+    expect("style words", style_words("```\nStyle: a b c.\nScene: x.\n```"), 3)
+    expect("style words, fenced label", style_words("`Style: a b.`"), 2)
+    expect("style words, none", style_words("no prompt here"), None)
+
+    handle, path = tempfile.mkstemp(suffix=".txt")
+    os.close(handle)
+    open(path, "w", encoding="utf-8").write(
+        "# a comment that is never sent\n#! medium\nfirst case\n\n"
+        "# another\nsecond case\n\n\n")
+    cases = prompts(path)
+    os.unlink(path)
+    expect("cases parsed", len(cases), 2)
+    expect("comments dropped", cases[0][0], "first case")
+    expect("medium flag set", cases[0][1], True)
+    expect("medium flag unset", cases[1][1], False)
+
+    # The checks come from score.py, so a rule change cannot leave this file measuring the old
+    # shape without the shared selftest noticing.
+    good = "```\nStyle: an oil painting, brooding.\nScene: A fox crosses snow.\n```"
+    expect("shared checks all pass on a good reply",
+           sorted(k for k, v in score.prompt_checks(good, True).items() if not v), [])
+    expect("shared checks catch a bad reply",
+           score.prompt_checks("Style: a.\nScene: b.", True)["fenced block"], False)
+    print("harness selftest passed" if not bad else f"harness selftest failed ({bad})")
+    return bad
+
+
 def main():
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -117,15 +160,21 @@ anything measured against it.""")
                         help="blank-line separated prompts (default: tests/expansion.txt)")
     parser.add_argument("--systems", default=DELIVERABLE,
                         help="comma-separated system-prompt files (default: the deliverable)")
-    parser.add_argument("--models", required=True, help="comma-separated Ollama models")
+    parser.add_argument("--models", help="comma-separated Ollama models")
     parser.add_argument("--ctx", type=int, default=8192, help="context window (default: 8192)")
     parser.add_argument("--seeds", default="1,2,3",
                         help="comma-separated seeds, pooled (default: 1,2,3). One seed is not a "
                              "measurement: seed 1 alone scored 82%% where 2 and 3 scored 97%%")
     parser.add_argument("--no-think", action="store_true",
                         help="the configuration score.py measures; thinking is on by default")
+    parser.add_argument("--selftest", action="store_true",
+                        help="check this harness against known inputs and exit")
     parser.add_argument("--out", help="write every reply here as JSON")
     args = parser.parse_args()
+    if args.selftest:
+        sys.exit(1 if selftest() else 0)
+    if not args.models:
+        parser.error("--models is required unless --selftest is given")
 
     cases = prompts(args.prompts)
     systems = [(os.path.basename(p), open(p, encoding="utf-8").read())
