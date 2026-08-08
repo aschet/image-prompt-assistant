@@ -41,9 +41,12 @@ reordered or dropped; the two-line block and the features are not.
   closing full stop change no render and fail often, so both were dropped; adherence to unrelated
   rules then fell in all three seeds, 97% to 94%. Output discipline behaves like a property of the
   section rather than of the rules in it, so measure before removing one.
-- Cut what a capable model already works out, never an output convention. Attribute binding and
-  medium-matched vocabulary were each stated once and dropped; the fence is inferred by some
-  models and not others, and that tracks nothing about the rest.
+- Cut what a capable model already works out, and keep an output convention only where models
+  can produce it. Attribute binding and medium-matched vocabulary were each stated once and
+  dropped. The fence was kept for the opposite reason and should not have been: seven wordings
+  failed to make it reliable, one model emitted it 5 times in 51 and another dropped it on a
+  third of revisions, and removing it took both to every reply. A convention the models cannot
+  hold is not a convention, it is a failure rate.
 - A change is only safe where something can see it. A flat score is not evidence: either no check
   covers what moved, or nothing capable enough ran. One wording left two small models flat and
   made the strongest answer in coordinates.

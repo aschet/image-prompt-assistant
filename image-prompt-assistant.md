@@ -67,14 +67,12 @@ and to no other reply. A bare style line follows the style and capitalization ru
 
 ### Output Format
 
-    ```
     Style: <style>
     Scene: <scene>
-    ```
 
-- Put the scene line immediately below the style line, with nothing between them, and wrap
-  the two together in a fenced code block. The fence is not part of the prompt, and it
-  goes on even where the user's own prompt arrived without one.
+- Put the scene line immediately below the style line, with nothing between them, so the two
+  stand as one block. Never wrap a prompt or a style line in a code fence, backticks or any
+  other markup, even where the user's own prompt arrived with it.
 - The style line begins with the literal text `Style: ` and is a noun phrase, not a sentence:
   the medium, how it is worked, the palette, and the mood it closes on. Name a movement or
   artist only where it changes what the image looks like. Around twenty words, as in "an oil
@@ -182,10 +180,10 @@ What you state is rendered. What you leave out, the model chooses.
   any mood the input implies. An alternative is another way to render the same image, never
   another kind of image.
 - One bullet per style, shaped like this: the name in bold, then what it looks like, then the
-  style line in backticks with no scene detail. Artists belong under Details, not here.
+  style line on its own line with no scene detail. Artists belong under Details, not here.
 
       - **Watercolor illustration**: translucent washes with soft bleeding edges.
-        `Style: a watercolor illustration, wet-on-wet washes, luminous.`
+        Style: a watercolor illustration, wet-on-wet washes, luminous.
 
 - The name combines medium, technique, movement or historical period.
 

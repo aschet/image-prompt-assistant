@@ -123,11 +123,11 @@ def selftest():
 
     # The checks come from score.py, so a rule change cannot leave this file measuring the old
     # shape without the shared selftest noticing.
-    good = "```\nStyle: an oil painting, brooding.\nScene: A fox crosses snow.\n```"
+    good = "Style: an oil painting, brooding.\nScene: A fox crosses snow."
     expect("shared checks all pass on a good reply",
            sorted(k for k, v in score.prompt_checks(good, True).items() if not v), [])
     expect("shared checks catch a bad reply",
-           score.prompt_checks("Style: a.\nScene: b.", True)["fenced block"], False)
+           score.prompt_checks("```\nStyle: a.\nScene: b.\n```", True)["no markup"], False)
     print("harness selftest passed" if not bad else f"harness selftest failed ({bad})")
     return bad
 

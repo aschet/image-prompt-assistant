@@ -18,7 +18,7 @@ does not generate images.
 
 ## Output Format
 
-Every prompt comes back as two lines, in a fenced block with no commentary around it:
+Every prompt comes back as two labelled lines, with no commentary and no markup around them:
 
 ```
 Style: a gouache illustration with matte chalky coverage, flat layered shapes, a cool restrained palette, still and wintry in mood.
@@ -53,9 +53,11 @@ it. The rules are held just as well without it and a prompt comes back in about 
 instead of fifty, measured on the same file and the same machine. Left on, a model can spend the
 whole context deliberating and return an empty reply rather than a short one.
 
-How reliably the block comes back fenced depends on the model, not on the wording: seven ways of
-stating it were measured and none beat the current one. A model that will not fence is not
-persuaded by rewording it.
+The block carries no code fence and no backticks. Seven ways of asking for a fence were
+measured and models emitted one unreliably — `gemma4:e4b` managed it 5 times in 51, and
+`qwen3.5:9b` dropped it on a third of revisions. Two labelled lines need no delimiter, and a
+reply that is nothing but the prompt copies in one action from any client that offers to copy a
+message.
 
 The rules were developed with Claude Opus 5, and Claude Sonnet 5 is the primary target. The
 prompts were tested mainly against Krea 2, so anything claimed here about what a sampler does

@@ -57,17 +57,16 @@ STOP = {"with", "that", "this", "from", "into", "over", "under", "their", "there
 
 
 def fences(reply):
-    """Prompt blocks, as the rules require them to be emitted."""
+    """Fenced blocks, which the rules now forbid. Kept to detect them, not to require them."""
     return [b.strip() for b in re.findall(r"```(?:\w*\n)?(.*?)```", reply, re.S) if b.strip()]
 
 
 def split(block):
     """A block's style and scene line, or (None, None) if it is not shaped like a prompt.
 
-    Fence markers are dropped first. A model that fences the scene but leaves the style line
-    above it defeats the fenced path, and the loose fallback then swallows the markers into the
-    scene, so a scene that does end in a full stop is scored as though it does not — one fault
-    counted twice, which is what prompt_body exists to avoid."""
+    Fence markers are dropped first. Models still emit them despite the rule, and letting them
+    land in the scene would cost it its full stop as well — one fault counted twice, which is
+    what prompt_body exists to avoid."""
     lines = [l for l in block.splitlines() if l.strip() and l.strip().strip("`") != ""]
     if len(lines) < 2 or not lines[0].startswith("Style:"):
         return None, None
@@ -84,8 +83,8 @@ def spoken(reply):
 
 
 def prompt_body(reply):
-    """The prompt in a reply, and whether it was fenced. A missing fence is one fault, not
-    eleven: the capitalization, full stops and prohibitions are all still there to judge."""
+    """The prompt in a reply, and whether it came wrapped in markup. Markup is one fault, not
+    twelve: the wording and the prohibitions are all still there to judge."""
     fenced = fences(reply)
     for block in fenced:
         if split(block)[0] is not None:
@@ -124,16 +123,18 @@ class Case:
 def prompt_checks(reply, medium_given=False):
     """Output Format and Wording, on a reply that must carry one prompt. Every key is always
     present: a reply with no prompt fails all of them rather than shrinking its denominator."""
-    keys = ["fenced block", "two lines", "no blank line", "Style: prefix", "Scene: prefix",
+    keys = ["no markup", "two lines", "no blank line", "Style: prefix", "Scene: prefix",
             "lower case", "full stops", "no commentary", "no 'digital'", "no frame named",
             "no prompt syntax", "no negative prompt"]
     if not medium_given:
         keys.append("photography not chosen")
     out = dict.fromkeys(keys, False)
     block, fenced = prompt_body(reply)
-    out["fenced block"] = fenced
     if block is None:
         return out
+    # Markup around the block is the fault now, not its absence: the labels delimit it, and a
+    # fence a model only sometimes emits is worse than none for lifting the prompt out.
+    out["no markup"] = not fenced
     style, scene = split(block)
     out["two lines"] = style is not None
     if style is None:
@@ -149,8 +150,10 @@ def prompt_checks(reply, medium_given=False):
     out["Scene: prefix"] = scene.startswith("Scene: ")
     out["lower case"] = bool(body) and (body[0].islower() or first in PROPER)
     out["full stops"] = style.rstrip().endswith(".") and scene.rstrip().endswith(".")
-    # Nothing but the prompt; the fence itself is scored above.
+    # Nothing but the prompt; any markup around it is scored above.
     stripped = reply.strip()
+    # Prose around the block is a separate fault from wrapping it in markup, so a fenced reply
+    # with nothing else in it fails "no markup" alone.
     out["no commentary"] = (stripped.startswith("```") and stripped.endswith("```")
                             if fenced else stripped == block)
     out["no 'digital'"] = not re.search(r"\bdigital\b", reply, re.I)
@@ -376,24 +379,20 @@ def run_case(model, case, system, ctx, seed):
     return results, tokens, elapsed, reply, prior
 
 
-GOOD = ("```\nStyle: an oil painting with heavy impasto, a warm muted palette, brooding.\n"
-        "Scene: A red fox crosses deep snow in the lower third of the frame.\n```")
+GOOD = ("Style: an oil painting with heavy impasto, a warm muted palette, brooding.\n"
+        "Scene: A red fox crosses deep snow in the lower third of the frame.")
 
-ALTS = "\n".join(f"- **Style {n}**: a description of the look. "
-                 f"`Style: a medium with a technique, a restrained palette, moody.`"
+ALTS = "\n".join(f"- **Style {n}**: a description of the look.\n"
+                 f"  Style: a medium with a technique, a restrained palette, moody."
                  for n in "ABCDE")
 
 # Each case names one fault and the checks that must react. Everything unnamed must stay as in
 # GOOD, which is what catches a check reaching past its own rule.
 SELFTEST = [
     ("perfect", GOOD, {}),
-    ("unfenced", GOOD.replace("```", "").strip(), {"fenced block": False}),
-    # Style line above the fence, scene inside it. One fault, not two: the markers must
-    # not land in the scene and cost it its full stop as well.
-    ("style line outside the fence",
-     GOOD.replace("```\nStyle:", "Style:").replace("frame.\n```", "frame.\n```", 1)
-         .replace("brooding.\n", "brooding.\n```\n"),
-     {"fenced block": False}),
+    # Markup around the block is the fault now, not its absence: no client offers to copy a
+    # fenced block that a model only sometimes emits, and the labels delimit it already.
+    ("fenced when it should not be", f"```\n{GOOD}\n```", {"no markup": False}),
     ("blank line between", GOOD.replace(".\nScene:", ".\n\nScene:"), {"no blank line": False}),
     # The label is now required, so its absence is the fault.
     ("scene unlabelled", GOOD.replace("\nScene: A red fox", "\nA red fox"),
@@ -441,25 +440,27 @@ def selftest():
             print(f"  {name}: ok")
 
     style = "Style: an oil painting with heavy impasto, a warm muted palette, brooding."
-    three = "\n\n".join(f"```\n{style}\nA fox {n} the snow.\n```" for n in ("on", "under", "past"))
+    three = "\n\n".join(f"{style}\nScene: A fox {n} the snow." for n in ("on", "under", "past"))
     prior = (style, "A red fox crosses deep snow in the lower third of the frame.")
     cases = [
         ("variations, three", check_variations, three, {}),
-        ("variations, unfenced", check_variations, three.replace("```", ""), {}),
+        ("variations, fenced", check_variations,
+         "\n\n".join(f"```\n{b}\n```" for b in three.split("\n\n")), {}),
         ("variations, two only", check_variations, "\n\n".join(three.split("\n\n")[:2]),
          {"three blocks": False}),
         ("variations, same scene", check_variations,
-         "\n\n".join(f"```\n{style}\nA fox on the snow.\n```" for _ in range(3)),
+         "\n\n".join(f"{style}\nScene: A fox on the snow." for _ in range(3)),
          {"scenes differ": False}),
         ("reverse engineering", check_reverse,
-         "```\nStyle: a woodblock print, a palette of black, ochre and cream, austere.\n"
-         "A heron fills the centre of the frame, lit from the left, its shadow falls right.\n```",
+         "Style: a woodblock print, a palette of black, ochre and cream, austere.\n"
+         "Scene: A heron fills the centre of the frame, lit from the left, its shadow falls "
+         "right.",
          {}),
         # The inflections the bare stems used to miss, each one a real reply's wording.
         ("reverse engineering, says lighting", check_reverse,
-         "```\nStyle: a woodblock print, a palette of black, ochre and cream, austere.\n"
-         "A heron fills the centre of the frame under flat overcast lighting, its shadows "
-         "pooling right.\n```", {}),
+         "Style: a woodblock print, a palette of black, ochre and cream, austere.\n"
+         "Scene: A heron fills the centre of the frame under flat overcast lighting, its "
+         "shadows pooling right.", {}),
         ("titles", check_titles, "\n".join(f"- A Title Of {n}" for n in "ABCDE"), {}),
         ("titles, four", check_titles, "\n".join(f"- A Title Of {n}" for n in "ABCD"),
          {"five titles": False}),
@@ -471,9 +472,9 @@ def selftest():
         ("off topic refused", check_offtopic, "That is off-topic for me.",
          {"answers it": False, "no refusal": False}),
         ("style change keeps elements", check_style_change,
-         f"```\nStyle: a woodblock print, flat ink, austere.\nScene: {prior[1]}\n```", {}),
+         f"Style: a woodblock print, flat ink, austere.\nScene: {prior[1]}", {}),
         ("style change loses them", check_style_change,
-         "```\nStyle: a woodblock print, flat ink, austere.\nScene: A heron wades a marsh.\n```",
+         "Style: a woodblock print, flat ink, austere.\nScene: A heron wades a marsh.",
          {"elements kept": False}),
         ("alternatives, marked", check_alternatives, ALTS, {}),
         ("alternatives, unmarked", check_alternatives, ALTS.replace("`", ""), {}),
@@ -482,7 +483,7 @@ def selftest():
         # The qwen-3.5 fault: the span is opened and never closed, so the style line runs on
         # into a scene. The old backtick-pair pattern only caught this by accident.
         ("alternatives, runs into a scene", check_alternatives,
-         ALTS.replace("moody.`", "moody.\n  " + "a fox crosses the deep snow past a fence, " * 8,
+         ALTS.replace("moody.", "moody " + "a fox crosses the deep snow past a fence, " * 8,
                       1),
          {"no scene detail": False}),
     ]
