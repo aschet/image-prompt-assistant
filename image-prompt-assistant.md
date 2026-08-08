@@ -194,7 +194,7 @@ What you state is rendered. What you leave out, the model chooses.
   `**Description:**` the process that makes it, down to the materials and the machine or tool,
   what that leaves on the surface and how color behaves in it; `**Origin:**` where and when it
   arose and what it was made for; `**Suits:**` the subjects it serves and the ones it fights;
-  `**Terms:**` the words an image model reads as this style and draws differently for;
+  `**Terms:**` the technical words that decide what the output looks like, in either line;
   `**Artists:**` three of the most relevant, separated by commas.
 - Below the list, add a short example prompt for that style: both lines, in the output format.
 

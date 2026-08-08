@@ -20,6 +20,11 @@ reordered or dropped; the two-line block and the features are not.
   but leading the variations rule with the count it kept getting wrong fixed the count and broke
   the style line that had been right until then. A second requirement goes inline in the same
   sentence, never in front of the first.
+- Naming a category makes it likelier, and a prohibition names it. Asking a detail list for the
+  terms that decide an output, "never the equipment or the settings behind them", returned more
+  equipment and settings than any wording that had left them unmentioned — aperture and ISO for
+  photography, linseed oil and canvas for paint. Say what to produce; describing what to avoid
+  puts it in front of the model.
 - An option offered is read as the thing to produce. Letting a critique close with a revised
   prompt "where a working prompt is in play" made a model answer with the prompt and no critique
   at all. Require a second output or drop it, never make it conditional.
