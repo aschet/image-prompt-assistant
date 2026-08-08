@@ -1,0 +1,64 @@
+# Expansion corpus. Each case is a prompt a user would actually type, chosen to land on a
+# rule that can regress. The seven marked CANARY cover rules the relaxation trimmed — if the
+# relaxed ruleset is going to cost quality, it shows there first.
+#
+# The first five are the cases Thomas supplied on 2026-08-08.
+
+Architectural concept drawing, mixed media, depicting a futuristic solarpunk housing complex naturally integrated into its environment, featuring large glass windows, advanced technology, and ultra-crisp rendering.
+#! medium
+# medium and rendering given; "ultra-crisp" borders the production-language prohibition
+
+A colorful Day of the Dead parade in Mexico.
+# sparse: style is the assistant's to choose, world built from nothing, no photography
+
+Simplistic travel poster: on the left, an Apollo rocket launching from its launch pad; on the right, two stacked panels—the upper panel featuring Voyager 1 traveling through space, and the lower panel depicting a lunar lander on the Moon.
+#! medium
+# a divided frame, which no rule covers; also "simplistic" as a vague value
+
+A surreal landscape painting dominated by a colossal crimson sun with textured stippled shading and heavy atmospheric density filling the sky, overlaid with a halftone dot pattern to create a gritty vintage print aesthetic reminiscent of dry brush illustration and charcoal etching. In the dark foreground silhouette, a solitary figure stands in tall grass and reeds. The middle distance features white farm buildings near the horizon line accompanied by a small flock of grazing sheep. The color palette is rich in burnt orange, deep rust, and muddy greens set against heavy velvety blacks.
+#! medium
+# already detailed: polish, never expand; heavy style language to lift out of the scene
+
+A macro shot of complex caligraphic symbols rendered in two contrasting colors of ink on textured parchment paper, intricate swirling patterns and detailed brush strokes, deep black ink paired with rich crimson red ink, aged yellowish-white parchment surface with subtle grain and texture, soft diffuse lighting emphasizing the sheen of the ink and the roughness of the paper, high definition, sharp focus.
+#! medium
+# photography asked for, so kept; keyword tail to prosify; light quality to style, effect to scene
+
+A wall of old brass post office boxes, each with a little glass window and a number dial.
+# CANARY repetition: how many and in what grid, stated once rather than box by box
+
+A poppy field going right up to the horizon under a big sky.
+# CANARY repetition past counting: the width of one bloom against the frame, or they come out large and few
+
+Two old men playing chess on a park bench, one about to move.
+# CANARY facing: the rule now says figures and prominent forms, not anything with a front
+
+A corner shop at night with a neon sign reading Golden Dragon and a cat sitting in the window.
+# visible text as an exact quoted string; also a light source in the scene
+
+A two-color risograph print of a mountain range, cyclists on the road below.
+#! medium
+# CANARY limited palette: an element whose color goes unstated must still be assigned one
+
+Ein Aquarell von einem Almhaus im Nebel, mit einer alten Holzbank davor.
+#! medium
+# foreign input: translated, and rendered rather than transliterated
+
+A tabby cat mostly hidden behind a linen curtain, only its face and one paw showing.
+# concealment: name the edge that cuts across it, never the parts out of view
+
+A Bauhaus composition, three flat shapes on a pale ground, one large circle overlapping a tall rectangle.
+# CANARY shapes: proportions and frame fractions were cut, extent-before-relation was kept
+
+Some birds over a few rooftops, a couple of clouds.
+# CANARY definite values: now scoped to the elements that carry the composition
+
+A studio photograph of a woman in a kitchen, morning.
+#! medium
+# photography plain: honored, never pivoted to illustration to make it easier
+
+A botanical plate of a fern, on plain white.
+#! medium
+# CANARY background: the rule kept "unless the style has no background" but dropped the recursion
+
+The last train home.
+# sparse and abstract: mood implied, nothing depicted, world built entirely

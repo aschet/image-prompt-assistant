@@ -123,9 +123,9 @@ class Case:
 def prompt_checks(reply, medium_given=False):
     """Output Format and Wording, on a reply that must carry one prompt. Every key is always
     present: a reply with no prompt fails all of them rather than shrinking its denominator."""
-    keys = ["fenced block", "two lines", "no blank line", "Style: prefix", "lower case",
-            "full stops", "no commentary", "no 'digital'", "no frame named", "no prompt syntax",
-            "no negative prompt"]
+    keys = ["fenced block", "two lines", "no blank line", "Style: prefix", "no scene label",
+            "lower case", "full stops", "no commentary", "no 'digital'", "no frame named",
+            "no prompt syntax", "no negative prompt"]
     if not medium_given:
         keys.append("photography not chosen")
     out = dict.fromkeys(keys, False)
@@ -143,6 +143,10 @@ def prompt_checks(reply, medium_given=False):
     raw = block.splitlines()
     out["no blank line"] = len(raw) > 1 and raw[1].strip() != ""
     out["Style: prefix"] = style.startswith("Style: ")
+    # The scene "takes no label of its own", and nothing tested it until a model answered with a
+    # literal "Scene:" line and scored clean on all eleven other checks.
+    out["no scene label"] = not re.match(r"\s*(?:scene|prompt|description|subject)\s*:", scene,
+                                         re.I)
     out["lower case"] = bool(body) and (body[0].islower() or first in PROPER)
     out["full stops"] = style.rstrip().endswith(".") and scene.rstrip().endswith(".")
     # Nothing but the prompt; the fence itself is scored above.
@@ -183,46 +187,7 @@ def check_alternatives(reply, prior):
     return {"five styles": len(bullets) == 5,
             "bold name and description": len(bullets) == 5,
             "style line each": len(lines) == 5,
-            "no scene detail": all(len(l.split()) < 40 for l in lines) if lines else False,
-            "artist named": len(re.findall(r"exemplified by", reply, re.I)) >= 4}
-
-
-HEDGE = re.compile(r"as an ai|as a language model|i cannot judge|i can'?t judge|unable to judge|"
-                   r"not able to judge|cannot assess|purely subjective|is subjective", re.I)
-# Named principles the rule forbids standing in for an observation.
-PRINCIPLE = re.compile(r"rule of thirds|leading line|golden (?:ratio|spiral|section)|"
-                       r"frame within a frame|diagonal method", re.I)
-# Where in the frame an observation sits. The rule asks it to locate before it judges.
-PLACE = re.compile(r"\b(?:upper|lower|top|bottom|left|right|centre|center|corner|edge|third|"
-                   r"quarter|half|foreground|background|middle|band|horizon|side|diagonal)\b",
-                   re.I)
-# Coordinates where the rule asks for words. gemma4:26b wrote "0:5 to 0:9 of the vertical axis"
-# when an earlier wording asked for a fraction of the frame.
-NUMERIC_PLACE = re.compile(r"\b\d\s*[:/]\s*\d\b|\bat \d\b")
-# A fault, however phrased. Deliberately broad: the rule asks for one, not for a given word.
-FAULT = re.compile(r"compet\w+|crowd\w*|flatten\w*|dead|inert|weak\w*|unbalanc\w+|awkward\w*|"
-                   r"merg\w+|collid\w+|tangent|cramped|monoton\w+|distract\w+|undermin\w+|"
-                   r"obscur\w+|clutter\w*|drown\w*|swallow\w*|fight\w*|too (?:large|small|heavy|"
-                   r"close|much|little|busy)|does (?:little|nothing)|adds nothing|disconnect\w+|"
-                   r"cuts? (?:through|off|awkward)|lost\b|stranded|empty\b|thin\b", re.I)
-
-
-def check_critique(reply, prior):
-    """Two checks earned by test: the hedge is what a cold model opens with, and naming a
-    principle is what every unruled reply did instead of looking at the picture."""
-    bullets = re.findall(r"^\s*[-*]\s+(.+)$", reply, re.M)
-    after = re.split(r"^\s*[-*]\s+.+$", reply.strip(), flags=re.M)[-1].strip()
-    # The critique ends on a sentence and never carries a prompt: applying it is a separate
-    # request. Counting words alone passed a model that emitted a prompt instead.
-    closing = (len(after.split()) >= 4 and "Style:" not in after and "```" not in after)
-    return {"no preamble": bool(re.match(r"^\s*[-*]\s+\S", reply)),
-            "four observations": len(bullets) == 4,
-            "located": bool(bullets) and all(PLACE.search(b) for b in bullets)
-                       and not NUMERIC_PLACE.search(reply),
-            "no principle named": not PRINCIPLE.search(reply),
-            "fault named": bool(FAULT.search(reply)),
-            "closing change": closing,
-            "no hedge": not HEDGE.search(reply)}
+            "no scene detail": all(len(l.split()) < 40 for l in lines) if lines else False}
 
 
 def check_details(reply, prior):
@@ -354,9 +319,6 @@ CASES = [
     Case("titles", [FOX, "Give me titles for this"], check_titles),
     Case("alternatives", [FOX, "What other styles would suit this?"], check_alternatives),
     Case("details", ["Tell me about Art Nouveau in detail"], check_details),
-    # No image, so every model answers it and it belongs in the first table. The image critique
-    # stays in CRITIQUE_CASES, where only a model with vision reaches it.
-    Case("critique prompt", [FOX, "Is this composition any good?"], check_critique),
     Case("off topic", ["What is the capital of France?"], check_offtopic),
 ]
 
@@ -382,17 +344,6 @@ VISION_CASES = [
                             ("isometric", True, True), ("watercolor", False, True),
                             ("gouache", True, True))
 ]
-
-# Kept out of VISION_CASES so the two capabilities never share a denominator. It reads an image
-# like they do, but nothing it is scored on is about reconstructing one.
-CRITIQUE_CASES = [
-    Case("critique", ["Is the composition of this photo any good?"], check_critique,
-         image=os.path.join(ROOT, "photograph.png")),
-]
-
-CRITIQUE_KEYS = ["no preamble", "four observations", "located", "no principle named",
-                 "fault named", "closing change", "no hedge"]
-
 
 def run_case(model, case, system, ctx, seed):
     """Play the case through and check only the last reply; earlier turns set up the prompt."""
@@ -428,21 +379,9 @@ def run_case(model, case, system, ctx, seed):
 GOOD = ("```\nStyle: an oil painting with heavy impasto, a warm muted palette, brooding.\n"
         "A red fox crosses deep snow in the lower third of the frame.\n```")
 
-ALTS = "\n".join(f"- **Style {n}**: a description of the look, exemplified by An Artist. "
+ALTS = "\n".join(f"- **Style {n}**: a description of the look. "
                  f"`Style: a medium with a technique, a restrained palette, moody.`"
                  for n in "ABCDE")
-
-CRIT = ("- In the right third of the frame, the dark mass sits heavy against the open left.\n"
-        "- At the upper left corner, the bright sign catches the eye and competes with it.\n"
-        "- The top edge cuts the branches away from the trunk that carries them.\n"
-        "- Across the bottom third, the wet ground flattens the depth behind it.\n"
-        "\n"
-        "Bring the ground closer so the lower band carries a form instead of a blank.")
-
-CRIT_REV = CRIT.replace(
-    "Bring the ground closer so the lower band carries a form instead of a blank.",
-    "```\nStyle: an oil painting with heavy impasto, a warm muted palette, brooding.\n"
-    "A red fox crosses deep snow, a low drift breaking the lower third of the frame.\n```")
 
 # Each case names one fault and the checks that must react. Everything unnamed must stay as in
 # GOOD, which is what catches a check reaching past its own rule.
@@ -456,6 +395,11 @@ SELFTEST = [
          .replace("brooding.\n", "brooding.\n```\n"),
      {"fenced block": False}),
     ("blank line between", GOOD.replace(".\nA red", ".\n\nA red"), {"no blank line": False}),
+    # A real reply from qwen3.5:9b, which labelled the scene and passed every other check.
+    ("scene labelled", GOOD.replace("\nA red fox", "\nScene: A red fox"),
+     {"no scene label": False, "lower case": True}),
+    ("scene labelled, lower case", GOOD.replace("\nA red fox", "\nscene: a red fox"),
+     {"no scene label": False}),
     ("no full stop", GOOD.replace("brooding.", "brooding"), {"full stops": False}),
     ("upper case after label", GOOD.replace("an oil", "An oil"), {"lower case": False}),
     ("proper noun opens", GOOD.replace("an oil painting", "Japanese woodblock print"), {}),
@@ -535,41 +479,6 @@ def selftest():
          ALTS.replace("moody.`", "moody.\n  " + "a fox crosses the deep snow past a fence, " * 8,
                       1),
          {"no scene detail": False}),
-        ("alternatives, no artist", check_alternatives,
-         ALTS.replace("exemplified by An Artist. ", ""), {"artist named": False}),
-        ("critique", check_critique, CRIT, {}),
-        # What gemma opened with on every cold load, before any rule said not to.
-        ("critique, hedged", check_critique,
-         "As an AI text model, I cannot judge aesthetic quality.\n\n" + CRIT,
-         {"no preamble": False, "no hedge": False}),
-        # What both models did unruled: a principle name in place of looking at the picture.
-        ("critique, principles", check_critique,
-         CRIT.replace("the dark mass sits heavy", "the Rule of Thirds is well used", 1),
-         {"no principle named": False}),
-        ("critique, all praise", check_critique,
-         re.sub(r"competes with it|flattens the depth", "sits comfortably", CRIT),
-         {"fault named": False}),
-        ("critique, three", check_critique,
-         "\n".join(CRIT.splitlines()[:3] + CRIT.splitlines()[-2:]),
-         {"four observations": False}),
-        ("critique, numeric places", check_critique,
-         CRIT.replace("In the right third of the frame", "At 0:7 to 0:9 of the horizontal axis",
-                      1), {"located": False}),
-        ("critique, unlocated", check_critique,
-         CRIT.replace("- In the right third of the frame, the dark mass sits heavy against the "
-                      "open left.", "- The dark mass sits heavy and competes for attention.", 1),
-         {"located": False}),
-        ("critique, no closing change", check_critique,
-         "\n".join(CRIT.splitlines()[:4]), {"closing change": False}),
-        # gemma4:e2b invented a prompt where the rule asks for a sentence, and the word count
-        # alone let it through.
-        ("critique, invents a prompt", check_critique,
-         CRIT.replace("Bring the ground closer so the lower band carries a form instead of a "
-                      "blank.", "Change:\nStyle: cinematic realism, a muted palette, melancholy."),
-         {"closing change": False}),
-        # A critique closes on the sentence and never carries a prompt: applying it is a
-        # separate request, which is what ornith:9b got wrong by answering with a prompt.
-        ("critique closing on a prompt", check_critique, CRIT_REV, {"closing change": False}),
     ]
     for name, fn, reply, expected in cases:
         got = fn(reply, prior)
@@ -611,26 +520,9 @@ def report(rows, out=None):
         for model, *_rest, pair in vision_rows:
             seen, asked = pair
             marks = " | ".join(f"{seen[k]}/{asked[k]}" for k in keys)
-            # Only this table's own keys: the counter also carries the critique checks.
             got, want = sum(seen[k] for k in keys), sum(asked[k] for k in keys)
             table.append(f"| `{model['name']}` | {marks} | "
                          f"{got}/{want} ({got / want:.0%}) |")
-
-        # Skipped entirely for a transcript recorded before the case existed, where every model
-        # would otherwise show an empty 0/0 row.
-        critique = [(m, p) for m, *_r, p in vision_rows if sum(p[1][k] for k in CRITIQUE_KEYS)]
-        if critique:
-            table += ["", "### Critique", "",
-                      "Composition critique of one source image, kept apart from",
-                      "reconstruction because nothing scored here is about rebuilding a",
-                      "prompt.", "",
-                      "| Model | Kept | Fell Down On |", "| --- | --- | --- |"]
-            for model, (seen, asked) in critique:
-                got = sum(seen[k] for k in CRITIQUE_KEYS)
-                want = sum(asked[k] for k in CRITIQUE_KEYS)
-                missed = [k for k in CRITIQUE_KEYS if asked[k] and seen[k] < asked[k]]
-                table.append(f"| `{model['name']}` | {got}/{want} ({got / want:.0%}) | "
-                             f"{', '.join(missed) or '—'} |")
 
     text = "\n".join(table)
     print("\n" + text)
@@ -663,7 +555,7 @@ def rescore(path, out=None):
     """Re-apply the checks to replies already collected. Changing a check is then seconds of
     work rather than another sweep, and the comparison is exact: identical replies, new rules."""
     saved = json.load(open(path, encoding="utf-8"))
-    by_image = VISION_CASES + CRITIQUE_CASES
+    by_image = VISION_CASES
     checks = {c.name: c.check for c in CASES + by_image}
     rows = []
     for name, body in saved.items():
@@ -861,7 +753,7 @@ with --rescore instead of costing another sweep.""")
         seen = None
         if "vision" in model["caps"]:
             seen, asked = collections.Counter(), collections.Counter()
-            for case in VISION_CASES + CRITIQUE_CASES:
+            for case in VISION_CASES:
                 results, _, _, reply, prior = run_case(model, case, system, args.ctx, args.seed)
                 said.append({"case": case.name, "reply": reply, "prior": prior})
                 for check, ok in results.items():

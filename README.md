@@ -14,8 +14,6 @@ does not generate images.
 - Suggests styles — alternatives for a prompt, or examples within a category — each with a
   ready-to-paste style line
 - Explains a style in detail, or gives an example prompt in it
-- Critiques a composition — an image you attach, or the one your working prompt describes —
-  and closes on the single change that would most improve it
 - Proposes titles
 
 ## Output Format
@@ -27,10 +25,10 @@ Style: a gouache illustration with matte chalky coverage, flat layered shapes, a
 A red fox stands in profile mid-stride on unbroken snow in the lower third of the frame, one forepaw lifted, its tail held low and level behind it. Its coat runs rust-orange along the back and shoulders, fading to cream at the throat, with black stockings on all four legs. Shallow prints trail back from its hind paws to the left edge. Directly behind, the ground rises in three pale drifts, each fainter than the last, and a stand of thin dark trunks crosses the middle distance. The slope continues to a low ridgeline near the top edge, where a narrow band of overcast sky closes the frame. Soft even light falls without shadow, thin mist gathering between the trunks, and a single crow sits high on a bare branch at the right.
 ```
 
-The `Style:` line carries medium, technique, movement, school, historical period, artist,
-rendering, palette, mood and the overall character of the composition. The scene line carries
-everything else — what is depicted, its attributes, placement, framing, atmosphere and the light
-in the scene.
+The `Style:` line carries the medium, how it is worked, the palette and the mood, in about twenty
+words, naming a movement or artist only where that changes what the image looks like. The scene
+line carries everything else — what is depicted, its attributes, placement, framing, atmosphere
+and the light in the scene.
 
 The split is the whole point. A style line must apply unchanged to any other scene, so it can be
 swapped without disturbing what the image shows.
@@ -50,8 +48,10 @@ is never its own choice — ask for it and you get it.
 Paste `image-prompt-assistant.md` into an assistant's system prompt or custom instructions. It
 is written to stand alone and depends on no other file.
 
-Set the model's context window to at least 8k. Below that, replies truncate mid-prompt — a
-reasoning model spends most of the window before the answer begins.
+Set the model's context window to at least 8k, and turn extended thinking off. The rules are
+held just as well without it and a prompt comes back in about three seconds instead of fifty,
+measured on the same file and the same machine. Left on at 8k, a model can also spend the whole
+window deliberating and return an empty reply rather than a short one.
 
 The rules were developed with Claude Opus 5, and Claude Sonnet 5 is the primary target. The
 prompts were tested mainly against Krea 2, so anything claimed here about what a sampler does
@@ -68,33 +68,39 @@ to the processor and fall to 6. Reading an image needs a model with vision.
 
 `tests/score.py` runs every request type against a local Ollama model and checks the reply
 mechanically: the output format, the prohibitions, whether each request reaches the right
-section, and how much of a prompt survives a revision. Whether a judgment is right, or a render
-any good, stays with you.
+section, and how much of a prompt survives a revision. `tests/strain.py` times what following
+the rules costs, which is a separate question — a model can keep every rule and still take a
+minute per prompt. Whether a judgment is right, or a render any good, stays with you.
 
 Measured on a Ryzen 7 7700 with an RTX 4070 (12 GB) and 64 GB of RAM, at an 8k context and a
 fixed seed. Read the bands, not the ranking: nothing sets a sampling temperature, so a score is
 one draw — three seeds moved two models by 9 and 16 points out of 88. Speed will not carry to
 another machine; Rules Kept will.
 
+Every model here above 20B is a mixture of experts. No larger dense model is included: on a
+12 GB card their weights spill to the processor and they run at 6 to 8 tok/s against 41 and up
+for everything listed, which is too slow to use. That is a property of the card, not of the
+models — with more memory they would belong here.
+
+These figures come from a sweep run before the current rules and before a twelfth check was
+added, so they under-report by roughly one check per prompt. Rerun `score.py` and rebuild them
+with `table.py` before reading them closely.
+
 <!-- tables:start -->
 
 | Model | Size | Vision | Rules Kept | Speed | Verdict |
 | --- | --- | --- | --- | --- | --- |
 | `glm-4.7-flash:latest` | 29.9B | No | 88/88 (100%) | 44 tok/s | Recommended |
-| `qwen3.6:27b` | 27.8B | Yes | 88/88 (100%) | 6 tok/s | Recommended |
 | `gemma4:26b` | 25.8B | Yes | 87/88 (99%) | 45 tok/s | Recommended |
 | `gemma4:12b` | 11.9B | Yes | 84/88 (95%) | 49 tok/s | Recommended |
 | `qwen3.5:9b` | 9.7B | Yes | 84/88 (95%) | 76 tok/s | Recommended |
 | `qwen3.6:35b` | 36.0B | Yes | 84/88 (95%) | 50 tok/s | Recommended |
-| `devstral-small-2:24b` | 24.0B | Yes | 83/88 (94%) | 8 tok/s | Recommended |
 | `gpt-oss:20b` | 20.9B | No | 83/88 (94%) | 62 tok/s | Recommended |
 | `ornith:9b` | 9.0B | No | 83/88 (94%) | 74 tok/s | Recommended |
 | `nemotron3:33b` | 33.0B | Yes | 82/88 (93%) | 41 tok/s | Recommended |
-| `granite4.1:30b` | 28.9B | No | 81/88 (92%) | 6 tok/s | Recommended |
 | `gemma4:e4b` | 8.0B | Yes | 80/88 (91%) | 104 tok/s | Recommended |
 | `ministral-3:14b` | 13.9B | Yes | 80/88 (91%) | 50 tok/s | Recommended |
 | `ornith:35b` | 34.7B | No | 79/88 (90%) | 55 tok/s | Usable |
-| `mistral-small3.2:24b` | 24.0B | Yes | 78/88 (89%) | 8 tok/s | Usable |
 | `north-mini-code-1.0:q4_K_M` | 30.5B | No | 77/88 (88%) | 45 tok/s | Usable |
 | `laguna-xs-2.1:latest` | 33.4B | No | 72/88 (82%) | 59 tok/s | Usable |
 | `nemotron-3-nano:30b` | 31.6B | No | 68/88 (77%) | 47 tok/s | Usable |
@@ -108,35 +114,13 @@ one — ink on cream has neither.
 
 | Model | Medium Read | Framing Stated | Light Stated | Palette Named | Kept |
 | --- | --- | --- | --- | --- | --- |
-| `qwen3.6:27b` | 10/12 | 11/12 | 6/6 | 9/10 | 36/40 (90%) |
 | `gemma4:26b` | 12/12 | 12/12 | 6/6 | 9/10 | 39/40 (98%) |
 | `gemma4:12b` | 12/12 | 12/12 | 4/6 | 8/10 | 36/40 (90%) |
 | `qwen3.5:9b` | 11/12 | 12/12 | 6/6 | 10/10 | 39/40 (98%) |
 | `qwen3.6:35b` | 12/12 | 12/12 | 5/6 | 10/10 | 39/40 (98%) |
-| `devstral-small-2:24b` | 12/12 | 12/12 | 5/6 | 6/10 | 35/40 (88%) |
 | `nemotron3:33b` | 11/12 | 10/12 | 5/6 | 7/10 | 33/40 (82%) |
 | `gemma4:e4b` | 12/12 | 8/12 | 3/6 | 8/10 | 31/40 (78%) |
 | `ministral-3:14b` | 11/12 | 12/12 | 6/6 | 6/10 | 35/40 (88%) |
-| `mistral-small3.2:24b` | 12/12 | 9/12 | 2/6 | 6/10 | 29/40 (72%) |
-
-### Critique
-
-Composition critique of one source image, kept apart from
-reconstruction because nothing scored here is about rebuilding a
-prompt.
-
-| Model | Kept | Fell Down On |
-| --- | --- | --- |
-| `qwen3.6:27b` | 7/7 (100%) | — |
-| `gemma4:26b` | 7/7 (100%) | — |
-| `gemma4:12b` | 7/7 (100%) | — |
-| `qwen3.5:9b` | 7/7 (100%) | — |
-| `qwen3.6:35b` | 6/7 (86%) | fault named |
-| `devstral-small-2:24b` | 7/7 (100%) | — |
-| `nemotron3:33b` | 6/7 (86%) | closing change |
-| `gemma4:e4b` | 7/7 (100%) | — |
-| `ministral-3:14b` | 7/7 (100%) | — |
-| `mistral-small3.2:24b` | 6/7 (86%) | located |
 
 <!-- tables:end -->
 

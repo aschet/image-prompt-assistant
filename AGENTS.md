@@ -10,8 +10,14 @@ reordered or dropped; the two-line block and the features are not.
 
 ## Changing a Rule
 
-- Every rule is read before every answer, so length is a constraint in itself. A small model
-  spends its budget reciting rules and truncates before it answers.
+- Every rule is read before every answer, but length is not what costs the time. Reading the
+  rules is one batched pass; deliberating over them is not, and that is where a reply's seconds
+  go. A ruleset cut to a quarter of its size deliberated longer than the full one on both models
+  it was measured against.
+- What a rule costs is set by how much it leaves to settle, not by how long it is. The cheapest
+  change measured so far added three lines: naming what to settle before writing, and saying the
+  rules shape the writing rather than forming a checklist, halved deliberation without removing
+  a single rule.
 - Put a requirement where the model acts on it, and know that emphasis inside a rule is zero-sum.
   Every gain measured so far came from moving a requirement rather than adding or removing one —
   but leading the variations rule with the count it kept getting wrong fixed the count and broke
@@ -29,8 +35,9 @@ reordered or dropped; the two-line block and the features are not.
   adds one.
 - State the prohibition alongside the criterion. Rules that say only what to do get violated;
   rules that say only what to avoid produce generate-and-filter loops.
-- Instructions about the model's own process bind weakly and have been ignored in every trace
-  observed. Constrain the output instead.
+- Instructions about the model's own process bind weakly where they ask for less of something.
+  A scaffold that terminates is different and does bind: naming what to settle, and how many
+  things, gives deliberation a finish line it otherwise never reaches.
 - Cut what a capable model already works out, never an output convention. Attribute binding and
   medium-matched vocabulary were each stated once and dropped; the fence is inferred by some
   models and not others, and that tracks nothing about the rest.
@@ -74,9 +81,22 @@ first pass has not yet asked. Where a server is not up, name what went unverifie
 reporting the change as tested.
 
 `tests/ask.py` puts the deliverable in front of a model, `tests/score.py` scores the reply,
-`tests/render.py` renders what it produces. Each `--help` carries its own flags and the order to
-climb the rungs in; what follows is only what those cannot say.
+`tests/strain.py` times what following it costs, `tests/render.py` renders what it produces.
+Each `--help` carries its own flags and the order to climb the rungs in; what follows is only
+what those cannot say.
 
+- Time a wording as well as scoring it. A ruleset can keep every rule and still be unusable: the
+  same file answered in five seconds with thinking off and fifty-six with it on, and nobody runs
+  a local model that takes a minute to expand one prompt.
+- `score.py` asks for no thinking, so a sweep cannot see any of this. Every conclusion about
+  deliberation comes from `strain.py`, and the two are not interchangeable.
+- A ruleset can deliberate past the context window. At 8k with thinking on, runs came back with
+  no answer at all — not truncated, empty — and an empty answer fails every check at once, so on
+  a small model every quality number is downstream of whether the reply survived. Raising the
+  context fixes the loss and costs time rather than saving it, because the wall was the only
+  thing ending the deliberation.
+- A degree fails differently in each mode, so check the one being recommended. Style lines ran
+  to about twenty-five words with thinking on and to forty without it, from the same rule.
 - Size does not predict whether a model can hold the rules. Across twenty-two measured, a 9B
   kept 95% and a 33B kept 82%, and the lowest score of all belonged to an 8B.
 - Below about 8B the failure changes kind, so do not read a small model's score as a weaker
