@@ -70,7 +70,8 @@ to the processor and fall to 6. Reading an image needs a model with vision.
 mechanically: the output format, the prohibitions, whether each request reaches the right
 section, and how much of a prompt survives a revision. `tests/strain.py` times what following
 the rules costs, which is a separate question — a model can keep every rule and still take a
-minute per prompt. Whether a judgment is right, or a render any good, stays with you.
+minute per prompt. It times the expansion path against Krea 2's own expansion prompt, so a
+figure in seconds still means something on another machine. Whether a judgment is right, or a render any good, stays with you.
 
 Measured on a Ryzen 7 7700 with an RTX 4070 (12 GB) and 64 GB of RAM, at an 8k context and a
 fixed seed. Read the bands, not the ranking: nothing sets a sampling temperature, so a score is
@@ -140,3 +141,8 @@ check names the rule it came from.
 
 © 2026 Thomas Ascher. Licensed under [CC BY 4.0](LICENSE) — use, adapt and redistribute it,
 including commercially, provided you give credit.
+
+One file is not covered by that. `tests/reference/expansion.txt` is Krea 2's own prompt-expansion
+system prompt, copied unmodified from [krea-ai/krea-2](https://github.com/krea-ai/krea-2) and
+licensed under Apache 2.0; its licence sits beside it. It is kept only as a speed floor for
+`tests/strain.py` and is no part of the deliverable.

@@ -98,7 +98,16 @@ one to time the deliverable as it stands. OLLAMA_HOST moves the server.
 The 8k default is what the front end the deliverable is written for provides, and raising it
 measures something a user will not have. Read `lost` before reading the times: a run that
 returns no answer at all still contributes a duration, and at 8k with thinking on that is a
-real outcome rather than an anomaly.""")
+real outcome rather than an anomaly.
+
+tests/reference/expansion.txt is Krea 2's own expansion prompt, kept as a speed floor so a
+number of seconds means something on a machine that is not this one. Read the seconds and the
+deliberation only: it answers in one paragraph, so every check on the two-line format fails by
+design and its Kept column is noise.
+
+It expands and does nothing else, so it floors that path alone. Revision carries a whole prior
+exchange, reverse engineering carries an image through the encoder, and neither is bounded by
+anything measured against it.""")
     parser.add_argument("prompts", nargs="?", default=os.path.join(os.path.dirname(__file__),
                                                                    "expansion.txt"),
                         help="blank-line separated prompts (default: tests/expansion.txt)")
