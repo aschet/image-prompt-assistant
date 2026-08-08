@@ -181,21 +181,23 @@ def check_titles(reply, prior):
 
 
 def check_alternatives(reply, prior):
-    bullets = re.findall(r"^\s*[-*]\s+\*\*(.+?)\*\*\s*:", reply, re.M)
+    # The name stands alone now, so the colon that used to introduce a description is optional.
+    bullets = re.findall(r"^\s*[-*]\s+\*\*(.+?)\*\*\s*:?\s*$", reply, re.M)
     # Delimiter-agnostic, so the rule may mark the style line or not without the score moving.
     # Anchoring on the label and running to the next bullet also catches a span the model never
     # closed, which is how a style line turns into a whole prompt.
     lines = [m.group(1).strip().strip("`").strip()
              for m in re.finditer(r"(Style:.*?)(?=\n\s*[-*]\s+\*\*|\n\s*\n|\Z)", reply, re.S)]
     return {"five styles": len(bullets) == 5,
-            "bold name and description": len(bullets) == 5,
+            "bold name": len(bullets) == 5,
             "style line each": len(lines) == 5,
             "no scene detail": all(len(l.split()) < 40 for l in lines) if lines else False}
 
 
 def check_details(reply, prior):
     return {"description label": "**Description:**" in reply,
-            "period label": "**Period:**" in reply,
+            "origin label": "**Origin:**" in reply,
+            "suits label": "**Suits:**" in reply,
             "artists label": "**Artists:**" in reply,
             "example prompt": len(prompt_blocks(reply)) == 1}
 
@@ -382,7 +384,7 @@ def run_case(model, case, system, ctx, seed):
 GOOD = ("Style: an oil painting with heavy impasto, a warm muted palette, brooding.\n"
         "Scene: A red fox crosses deep snow in the lower third of the frame.")
 
-ALTS = "\n".join(f"- **Style {n}**: a description of the look.\n"
+ALTS = "\n".join(f"- **Style {n}**\n"
                  f"  Style: a medium with a technique, a restrained palette, moody."
                  for n in "ABCDE")
 
@@ -478,8 +480,9 @@ def selftest():
          {"elements kept": False}),
         ("alternatives, marked", check_alternatives, ALTS, {}),
         ("alternatives, unmarked", check_alternatives, ALTS.replace("`", ""), {}),
-        ("alternatives, four", check_alternatives, "\n".join(ALTS.splitlines()[:4]),
-         {"five styles": False, "bold name and description": False, "style line each": False}),
+        # Each bullet is two lines now, so four styles is eight of them.
+        ("alternatives, four", check_alternatives, "\n".join(ALTS.splitlines()[:8]),
+         {"five styles": False, "bold name": False, "style line each": False}),
         # The qwen-3.5 fault: the span is opened and never closed, so the style line runs on
         # into a scene. The old backtick-pair pattern only caught this by accident.
         ("alternatives, runs into a scene", check_alternatives,

@@ -179,10 +179,11 @@ What you state is rendered. What you leave out, the model chooses.
   give five, most representative first, each from a different medium or movement and honoring
   any mood the input implies. An alternative is another way to render the same image, never
   another kind of image.
-- One bullet per style, shaped like this: the name in bold, then what it looks like, then the
-  style line on its own line with no scene detail. Artists belong under Details, not here.
+- One bullet per style, shaped like this: the name in bold, then the style line beneath it with
+  no scene detail. Nothing describes the style twice: the style line already says what it looks
+  like, and where it comes from belongs under Details.
 
-      - **Watercolor illustration**: translucent washes with soft bleeding edges.
+      - **Watercolor illustration**
         Style: a watercolor illustration, wet-on-wet washes, luminous.
 
 - The name combines medium, technique, movement or historical period.
@@ -190,10 +191,11 @@ What you state is rendered. What you leave out, the model chooses.
 ### Details
 
 - When the user asks about a style in detail, answer as a bullet list with bold labels:
-  `**Description:**` a detailed description, `**Period:**` the historical period, `**Artists:**`
-  three of the most relevant separated by commas.
+  `**Description:**` the process that makes it, down to the materials and the machine or tool,
+  what that leaves on the surface and how color behaves in it; `**Origin:**` where and when it
+  arose and what it was made for; `**Suits:**` the subjects it serves and the ones it fights;
+  `**Artists:**` three of the most relevant, separated by commas.
 - Below the list, add a short example prompt for that style: both lines, in the output format.
-
 
 ## Titles
 
