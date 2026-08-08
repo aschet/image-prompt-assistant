@@ -82,29 +82,25 @@ Every model here above 20B is a mixture of experts. No larger dense model is inc
 for everything listed, which is too slow to use. That is a property of the card, not of the
 models — with more memory they would belong here.
 
-These figures come from a sweep run before the current rules and before a twelfth check was
-added, so they under-report by roughly one check per prompt. Rerun `score.py` and rebuild them
-with `table.py` before reading them closely.
-
 <!-- tables:start -->
 
 | Model | Size | Vision | Rules Kept | Speed | Verdict |
 | --- | --- | --- | --- | --- | --- |
-| `glm-4.7-flash:latest` | 29.9B | No | 88/88 (100%) | 44 tok/s | Recommended |
-| `gemma4:26b` | 25.8B | Yes | 87/88 (99%) | 45 tok/s | Recommended |
-| `gemma4:12b` | 11.9B | Yes | 84/88 (95%) | 49 tok/s | Recommended |
-| `qwen3.5:9b` | 9.7B | Yes | 84/88 (95%) | 76 tok/s | Recommended |
-| `qwen3.6:35b` | 36.0B | Yes | 84/88 (95%) | 50 tok/s | Recommended |
-| `gpt-oss:20b` | 20.9B | No | 83/88 (94%) | 62 tok/s | Recommended |
-| `ornith:9b` | 9.0B | No | 83/88 (94%) | 74 tok/s | Recommended |
-| `nemotron3:33b` | 33.0B | Yes | 82/88 (93%) | 41 tok/s | Recommended |
-| `gemma4:e4b` | 8.0B | Yes | 80/88 (91%) | 104 tok/s | Recommended |
-| `ministral-3:14b` | 13.9B | Yes | 80/88 (91%) | 50 tok/s | Recommended |
-| `ornith:35b` | 34.7B | No | 79/88 (90%) | 55 tok/s | Usable |
-| `north-mini-code-1.0:q4_K_M` | 30.5B | No | 77/88 (88%) | 45 tok/s | Usable |
-| `laguna-xs-2.1:latest` | 33.4B | No | 72/88 (82%) | 59 tok/s | Usable |
-| `nemotron-3-nano:30b` | 31.6B | No | 68/88 (77%) | 47 tok/s | Usable |
-| `granite4.1:8b` | 8.8B | No | 63/88 (72%) | 71 tok/s | Not Recommended |
+| `laguna-xs-2.1:latest` | 33.4B | No | 85/85 (100%) | 57 tok/s | Recommended |
+| `ornith:9b` | 9.0B | No | 85/85 (100%) | 73 tok/s | Recommended |
+| `gemma4:12b` | 11.9B | Yes | 84/85 (99%) | 49 tok/s | Recommended |
+| `gemma4:26b` | 25.8B | Yes | 84/85 (99%) | 45 tok/s | Recommended |
+| `qwen3.6:35b` | 36.0B | Yes | 84/85 (99%) | 47 tok/s | Recommended |
+| `glm-4.7-flash:latest` | 29.9B | No | 82/85 (96%) | 42 tok/s | Recommended |
+| `gpt-oss:20b` | 20.9B | No | 82/85 (96%) | 60 tok/s | Recommended |
+| `qwen3.5:9b` | 9.7B | Yes | 79/85 (93%) | 76 tok/s | Recommended |
+| `nemotron3:33b` | 33.0B | Yes | 77/85 (91%) | 40 tok/s | Recommended |
+| `nemotron-3-nano:30b` | 31.6B | No | 76/85 (89%) | 46 tok/s | Usable |
+| `gemma4:e4b` | 8.0B | Yes | 75/85 (88%) | 101 tok/s | Usable |
+| `ministral-3:14b` | 13.9B | Yes | 74/85 (87%) | 49 tok/s | Usable |
+| `north-mini-code-1.0:q4_K_M` | 30.5B | No | 72/85 (85%) | 46 tok/s | Usable |
+| `ornith:35b` | 34.7B | No | 69/85 (81%) | 54 tok/s | Usable |
+| `granite4.1:8b` | 8.8B | No | 22/85 (26%) | 71 tok/s | Unusable |
 
 ### Reverse Engineering
 
@@ -114,13 +110,13 @@ one — ink on cream has neither.
 
 | Model | Medium Read | Framing Stated | Light Stated | Palette Named | Kept |
 | --- | --- | --- | --- | --- | --- |
-| `gemma4:26b` | 12/12 | 12/12 | 6/6 | 9/10 | 39/40 (98%) |
-| `gemma4:12b` | 12/12 | 12/12 | 4/6 | 8/10 | 36/40 (90%) |
-| `qwen3.5:9b` | 11/12 | 12/12 | 6/6 | 10/10 | 39/40 (98%) |
-| `qwen3.6:35b` | 12/12 | 12/12 | 5/6 | 10/10 | 39/40 (98%) |
-| `nemotron3:33b` | 11/12 | 10/12 | 5/6 | 7/10 | 33/40 (82%) |
-| `gemma4:e4b` | 12/12 | 8/12 | 3/6 | 8/10 | 31/40 (78%) |
-| `ministral-3:14b` | 11/12 | 12/12 | 6/6 | 6/10 | 35/40 (88%) |
+| `gemma4:12b` | 12/12 | 12/12 | 4/6 | 9/10 | 37/40 (92%) |
+| `gemma4:26b` | 12/12 | 12/12 | 6/6 | 10/10 | 40/40 (100%) |
+| `qwen3.6:35b` | 11/12 | 12/12 | 5/6 | 9/10 | 37/40 (92%) |
+| `qwen3.5:9b` | 12/12 | 12/12 | 6/6 | 9/10 | 39/40 (98%) |
+| `nemotron3:33b` | 11/12 | 11/12 | 5/6 | 6/10 | 33/40 (82%) |
+| `gemma4:e4b` | 11/12 | 8/12 | 4/6 | 8/10 | 31/40 (78%) |
+| `ministral-3:14b` | 12/12 | 12/12 | 5/6 | 7/10 | 36/40 (90%) |
 
 <!-- tables:end -->
 
