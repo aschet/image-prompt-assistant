@@ -92,10 +92,10 @@ what those cannot say.
 - Time a wording as well as scoring it: a ruleset can keep every rule and still be unusable, the
   same file answering in five seconds with thinking off and fifty-six with it on. `score.py` asks
   for no thinking and cannot see any of that, so every conclusion about deliberation comes from
-  `strain.py`. A trace many times the length of its answer means a rule the model filters against
+  `strain.py`. A trace many times the length of its reply means a rule the model filters against
   instead of generating from.
 - A ruleset can deliberate past the context window. At 8k with thinking on, runs came back with
-  no answer at all — not truncated, empty — and an empty answer fails every check at once, so on
+  no reply at all — not truncated, empty — and an empty reply fails every check at once, so on
   a small model every quality number is downstream of whether the reply survived. Raising the
   context fixes the loss and costs time rather than saving it, because the wall was the only
   thing ending the deliberation.
