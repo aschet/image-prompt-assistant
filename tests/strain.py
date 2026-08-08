@@ -138,9 +138,9 @@ def main():
         epilog="""Give --systems two files to compare a change against what it replaced; give it
 one to time the deliverable as it stands. OLLAMA_HOST moves the server.
 
-Seeds are pooled, and the default is three of them because one is not a measurement. Every
-comparison here once defaulted to seed 1, which turned out to be a systematically bad draw:
-the same rules and prompts kept 82% of checks at seed 1 and 97% at seeds 2 and 3.
+Seeds are pooled, and the default is three of them because one is not a measurement: the same
+rules and prompts have scored 82% of checks at one seed and 97% at two others. No particular seed
+is worse than another, so pool several rather than avoiding any.
 
 The 8k default is what the front end the deliverable is written for provides, and raising it
 measures something a user will not have. Read `lost` before reading the times: a run that
@@ -164,7 +164,8 @@ anything measured against it.""")
     parser.add_argument("--ctx", type=int, default=8192, help="context window (default: 8192)")
     parser.add_argument("--seeds", default="1,2,3",
                         help="comma-separated seeds, pooled (default: 1,2,3). One seed is not a "
-                             "measurement: seed 1 alone scored 82%% where 2 and 3 scored 97%%")
+                             "measurement: single seeds have differed by 15 points on the same "
+                             "rules")
     parser.add_argument("--no-think", action="store_true",
                         help="the configuration score.py measures; thinking is on by default")
     parser.add_argument("--selftest", action="store_true",

@@ -106,12 +106,13 @@ what those cannot say.
   than degree — a 4.7B returned nothing usable for a request it had just answered perfectly, and
   answered one request type in another's format — so test small models to find an ambiguous
   wording, never to decide whether one works.
-- One seed is not a measurement, and a fixed seed can be quietly bad. Nothing sets a temperature,
-  so a run inherits the model's own: three seeds with nothing else changed moved two models by 9
-  and 16 points out of 88, and every comparison here defaulted to seed 1 until the same rules
-  scored 82% of checks there and 97% at seeds 2 and 3. A sweep's aggregate is steady enough to
-  read; one model's score is not, and one model across two sweeps says nothing. `strain.py` pools
-  three seeds for that reason, and never change a check while a comparison is running.
+- One seed is not a measurement. Nothing sets a temperature, so a run inherits the model's own:
+  three seeds with nothing else changed moved two models by 9 and 16 points out of 88, and one
+  five-model comparison scored 82% of checks at its first seed and 97% at the other two. No seed
+  is worse than another — a seed picks a trajectory, nothing more — so pool several rather than
+  avoiding any. A sweep's aggregate is steady enough to read; one model's score is not, and one
+  model across two sweeps says nothing. `strain.py` pools three seeds, and never change a check
+  while a comparison is running.
 - Where a repeat does not reproduce, the machine cannot measure anything: say so and wait.
 - Warming hides what a user meets first. One model declined a composition judgment as subjective
   on three cold loads out of three and never once in twenty-two warm samples. Test the cold path
