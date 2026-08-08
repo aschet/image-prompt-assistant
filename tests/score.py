@@ -191,7 +191,10 @@ def check_alternatives(reply, prior):
     return {"five styles": len(bullets) == 5,
             "bold name": len(bullets) == 5,
             "style line each": len(lines) == 5,
-            "no scene detail": all(len(l.split()) < 40 for l in lines) if lines else False}
+            "no scene detail": all(len(l.split()) < 40 for l in lines) if lines else False,
+            # A bare style line is still bound by the style rules, and nothing checked that
+            # until qwen3.5:4b offered "minimalist digital art" and scored full marks for it.
+            "no 'digital'": not re.search(r"\bdigital\b", reply, re.I)}
 
 
 def check_details(reply, prior):
@@ -480,6 +483,10 @@ def selftest():
          "Style: a woodblock print, flat ink, austere.\nScene: A heron wades a marsh.",
          {"elements kept": False}),
         ("alternatives, marked", check_alternatives, ALTS, {}),
+        # The real 4B reply: a legal shape carrying a word the style rules forbid.
+        ("alternatives, says digital", check_alternatives,
+         ALTS.replace("a medium with a technique", "minimalist digital art", 1),
+         {"no 'digital'": False}),
         ("alternatives, unmarked", check_alternatives, ALTS.replace("`", ""), {}),
         # Each bullet is two lines now, so four styles is eight of them.
         ("alternatives, four", check_alternatives, "\n".join(ALTS.splitlines()[:8]),
