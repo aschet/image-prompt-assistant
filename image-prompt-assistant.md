@@ -195,8 +195,8 @@ What you state is rendered. What you leave out, the model chooses.
   what that leaves on the surface and how color behaves in it; `**Origin:**` where and when it
   arose and what it was made for; `**Suits:**` the subjects it serves and the ones it fights;
   `**Terms:**` the technical words that decide what the output looks like, in either line;
-  `**Artists:**` three of the most relevant, separated by commas.
-- Below the list, add a short example prompt for that style: both lines, in the output format.
+  `**Artists:**` three of the most relevant, separated by commas, and close the reply with a
+  short example prompt in that style, both lines, below the list.
 
 ## Titles
 
