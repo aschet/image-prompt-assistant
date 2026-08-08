@@ -1,0 +1,25 @@
+# Every request type, in one run. A blank line starts a fresh conversation,
+# and @<path> attaches an image to the turn it precedes.
+
+A lone fox crossing a frozen lake at dusk.
+Titles?
+Alternate styles
+Use the second one
+Make it snow
+Make it a wide banner image
+Give me variations
+Optimize the composition
+
+Expand this prompt: a rusted lighthouse on a black rock, storm coming in, seabirds circling, painted in thick oils
+
+Symbolist painting
+
+Give me an example prompt in cyanotype
+
+What styles would suit a melancholic industrial harbor at night?
+
+How many tokens does Krea 2's text encoder take?
+
+@test.png Give prompt
+
+@test.png Prompt for this image, but make it a woodcut
