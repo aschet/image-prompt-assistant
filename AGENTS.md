@@ -20,6 +20,11 @@ reordered or dropped; the two-line block and the features are not.
   but leading the variations rule with the count it kept getting wrong fixed the count and broke
   the style line that had been right until then. A second requirement goes inline in the same
   sentence, never in front of the first.
+- A rule set against what the training data is full of fails at a rate, and that rate is what
+  holding the position costs rather than a fault to reword away. Half the models offer a
+  "digital" style when alternatives are asked for, and a fifth reach for photography where the
+  medium is theirs to choose — both rules are clear, both are obeyed inside a prompt, and both
+  lose to the prior somewhere else. Measure the rate, keep the rule, and leave the wording alone.
 - Naming a category makes it likelier, and a prohibition names it. Asking a detail list for the
   terms that decide an output, "never the equipment or the settings behind them", returned more
   equipment and settings than any wording that had left them unmentioned — aperture and ISO for
