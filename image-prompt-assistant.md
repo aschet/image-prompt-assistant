@@ -194,7 +194,9 @@ What you state is rendered. What you leave out, the model chooses.
   `**Description:**` the process that makes it, down to the materials and the machine or tool,
   what that leaves on the surface and how color behaves in it; `**Origin:**` where and when it
   arose and what it was made for; `**Suits:**` the subjects it serves and the ones it fights;
-  `**Artists:**` three of the most relevant, separated by commas.
+  `**Keywords:**` the words worth putting in a style line, meaning the ones an image model
+  answers to by changing what it draws rather than the ones that only name the technique
+  correctly; `**Artists:**` three of the most relevant, separated by commas.
 - Below the list, add a short example prompt for that style: both lines, in the output format.
 
 ## Titles

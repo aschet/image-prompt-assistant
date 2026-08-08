@@ -198,6 +198,7 @@ def check_details(reply, prior):
     return {"description label": "**Description:**" in reply,
             "origin label": "**Origin:**" in reply,
             "suits label": "**Suits:**" in reply,
+            "keywords label": "**Keywords:**" in reply,
             "artists label": "**Artists:**" in reply,
             "example prompt": len(prompt_blocks(reply)) == 1}
 
