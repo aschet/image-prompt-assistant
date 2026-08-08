@@ -78,11 +78,6 @@ fixed seed. Read the bands, not the ranking: nothing sets a sampling temperature
 one draw — three seeds moved two models by 9 and 16 points out of 88. Speed will not carry to
 another machine; Rules Kept will.
 
-Every model here above 20B is a mixture of experts. No larger dense model is included: on a
-12 GB card their weights spill to the processor and they run at 6 to 8 tok/s against 41 and up
-for everything listed, which is too slow to use. That is a property of the card, not of the
-models — with more memory they would belong here.
-
 <!-- tables:start -->
 
 | Model | Size | Vision | Rules Kept | Speed | Verdict |
@@ -101,7 +96,6 @@ models — with more memory they would belong here.
 | `ministral-3:14b` | 13.9B | Yes | 74/85 (87%) | 49 tok/s | Usable |
 | `north-mini-code-1.0:q4_K_M` | 30.5B | No | 72/85 (85%) | 46 tok/s | Usable |
 | `ornith:35b` | 34.7B | No | 69/85 (81%) | 54 tok/s | Usable |
-| `granite4.1:8b` | 8.8B | No | 22/85 (26%) | 71 tok/s | Unusable |
 
 ### Reverse Engineering
 
