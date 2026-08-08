@@ -54,10 +54,8 @@ instead of fifty, measured on the same file and the same machine. Left on, a mod
 whole context deliberating and return an empty reply rather than a short one.
 
 How reliably the block comes back fenced depends on the model, not on the wording: seven ways of
-stating it were measured and none beat the current one. Where the format has to be guaranteed, a
-runtime that constrains decoding to a grammar can enforce it — llama.cpp takes one server-wide
-with `--grammar-file`, which holds for any client that connects. Most front ends, Ollama
-included, offer no equivalent.
+stating it were measured and none beat the current one. A model that will not fence is not
+persuaded by rewording it.
 
 The rules were developed with Claude Opus 5, and Claude Sonnet 5 is the primary target. The
 prompts were tested mainly against Krea 2, so anything claimed here about what a sampler does
