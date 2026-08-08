@@ -48,10 +48,17 @@ is never its own choice — ask for it and you get it.
 Paste `image-prompt-assistant.md` into an assistant's system prompt or custom instructions. It
 is written to stand alone and depends on no other file.
 
-Set the model's context window to at least 8k, and turn extended thinking off. The rules are
-held just as well without it and a prompt comes back in about three seconds instead of fifty,
-measured on the same file and the same machine. Left on at 8k, a model can also spend the whole
-window deliberating and return an empty reply rather than a short one.
+Turn extended thinking off wherever the front end offers it. The rules are held just as well
+without it and a prompt comes back in about three seconds instead of fifty, measured on the same
+file and the same machine. With thinking off, 8k of context is enough; with it on, 8k is not — a
+model can spend the whole window deliberating and return an empty reply rather than a short one,
+so give it considerably more or turn it off.
+
+How reliably the block comes back fenced depends on the model, not on the wording: seven ways of
+stating it were measured and none beat the current one. Where the format has to be guaranteed, a
+runtime that constrains decoding to a grammar can enforce it — llama.cpp takes one server-wide
+with `--grammar-file`, which holds for any client that connects. Most front ends, Ollama
+included, offer no equivalent.
 
 The rules were developed with Claude Opus 5, and Claude Sonnet 5 is the primary target. The
 prompts were tested mainly against Krea 2, so anything claimed here about what a sampler does
