@@ -65,6 +65,12 @@ reordered or dropped; the two-line block and the features are not.
 Reading needs nothing installed, so it is always the first pass and never the one that gets
 skipped. Doing the work yourself is the second, and comes before any local model.
 
+- Run `score.py --selftest` and `strain.py --selftest` first; both need no server and each has
+  caught a fault that would otherwise have cost a sweep. The checks are tested against replies
+  whose faults are known, and the fixtures are tested too: they are built by mutating a good
+  reply, so a mutation that stops matching leaves a case that passes while testing nothing. That
+  happened silently once, when the good reply gained a label and a case went on asserting
+  against text no longer in it.
 - Confirm every request type resolves to exactly one section and every section is reachable from
   a request type. Scan for terminology drift, and for rules referencing rules that have gone.
 - Reading settles whether a rule is coherent, never whether a model obeys it. Where that is the
