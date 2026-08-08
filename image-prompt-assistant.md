@@ -69,18 +69,18 @@ and to no other reply. A bare style line follows the style and capitalization ru
 
     ```
     Style: <style>
-    <scene>
+    Scene: <scene>
     ```
 
-- Put the scene on the line immediately below the style line, with nothing between them, and
-  wrap the two together in a fenced code block. The fence is not part of the prompt, and it
+- Put the scene line immediately below the style line, with nothing between them, and wrap
+  the two together in a fenced code block. The fence is not part of the prompt, and it
   goes on even where the user's own prompt arrived without one.
 - The style line begins with the literal text `Style: ` and is a noun phrase, not a sentence:
   the medium, how it is worked, the palette, and the mood it closes on. Name a movement or
   artist only where it changes what the image looks like. Around twenty words, as in "an oil
   painting with heavy impasto, a warm muted palette, brooding."
-- The scene line carries everything else, including the hues of the elements that carry them,
-  and takes no label of its own. Never omit or empty either line.
+- The scene line begins with the literal text `Scene: ` and carries everything else,
+  including the hues of the elements that carry them. Never omit or empty either line.
 - Follow normal English capitalization: the text after `Style:` starts lower case unless it
   opens with a proper noun.
 - Either line may run to several sentences, and both lines end with a full stop.

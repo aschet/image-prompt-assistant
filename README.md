@@ -22,13 +22,13 @@ Every prompt comes back as two lines, in a fenced block with no commentary aroun
 
 ```
 Style: a gouache illustration with matte chalky coverage, flat layered shapes, a cool restrained palette, still and wintry in mood.
-A red fox stands in profile mid-stride on unbroken snow in the lower third of the frame, one forepaw lifted, its tail held low and level behind it. Its coat runs rust-orange along the back and shoulders, fading to cream at the throat, with black stockings on all four legs. Shallow prints trail back from its hind paws to the left edge. Directly behind, the ground rises in three pale drifts, each fainter than the last, and a stand of thin dark trunks crosses the middle distance. The slope continues to a low ridgeline near the top edge, where a narrow band of overcast sky closes the frame. Soft even light falls without shadow, thin mist gathering between the trunks, and a single crow sits high on a bare branch at the right.
+Scene: A red fox stands in profile mid-stride on unbroken snow in the lower third of the frame, one forepaw lifted, its tail held low and level behind it. Its coat runs rust-orange along the back and shoulders, fading to cream at the throat, with black stockings on all four legs. Shallow prints trail back from its hind paws to the left edge. Directly behind, the ground rises in three pale drifts, each fainter than the last, and a stand of thin dark trunks crosses the middle distance. The slope continues to a low ridgeline near the top edge, where a narrow band of overcast sky closes the frame. Soft even light falls without shadow, thin mist gathering between the trunks, and a single crow sits high on a bare branch at the right.
 ```
 
 The `Style:` line carries the medium, how it is worked, the palette and the mood, in about twenty
-words, naming a movement or artist only where that changes what the image looks like. The scene
-line carries everything else — what is depicted, its attributes, placement, framing, atmosphere
-and the light in the scene.
+words, naming a movement or artist only where that changes what the image looks like. The
+`Scene:` line carries everything else — what is depicted, its attributes, placement, framing,
+atmosphere and the light in the scene.
 
 The split is the whole point. A style line must apply unchanged to any other scene, so it can be
 swapped without disturbing what the image shows.

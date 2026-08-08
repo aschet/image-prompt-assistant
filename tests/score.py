@@ -47,6 +47,7 @@ WORD = re.compile(r"[a-z]{4,}")
 STOP = {"with", "that", "this", "from", "into", "over", "under", "their", "there", "which",
         "where", "while", "above", "below", "along", "across", "onto", "upon", "than", "then",
         "also", "just", "very", "much", "some", "each", "both", "same", "other", "frame",
+        "scene",
         "toward", "against", "between", "behind", "beside", "around", "through",
         "emphasizing", "indicating", "suggesting", "capturing", "conveying", "evoking",
         "creating", "adding", "lending", "giving", "rendered", "rendering", "depicting",
@@ -123,7 +124,7 @@ class Case:
 def prompt_checks(reply, medium_given=False):
     """Output Format and Wording, on a reply that must carry one prompt. Every key is always
     present: a reply with no prompt fails all of them rather than shrinking its denominator."""
-    keys = ["fenced block", "two lines", "no blank line", "Style: prefix", "no scene label",
+    keys = ["fenced block", "two lines", "no blank line", "Style: prefix", "Scene: prefix",
             "lower case", "full stops", "no commentary", "no 'digital'", "no frame named",
             "no prompt syntax", "no negative prompt"]
     if not medium_given:
@@ -143,10 +144,9 @@ def prompt_checks(reply, medium_given=False):
     raw = block.splitlines()
     out["no blank line"] = len(raw) > 1 and raw[1].strip() != ""
     out["Style: prefix"] = style.startswith("Style: ")
-    # The scene "takes no label of its own", and nothing tested it until a model answered with a
-    # literal "Scene:" line and scored clean on all eleven other checks.
-    out["no scene label"] = not re.match(r"\s*(?:scene|prompt|description|subject)\s*:", scene,
-                                         re.I)
+    # Both lines are labelled. Models added "Scene:" unprompted often enough that requiring it
+    # scored better than forbidding it, over three seeds and five models.
+    out["Scene: prefix"] = scene.startswith("Scene: ")
     out["lower case"] = bool(body) and (body[0].islower() or first in PROPER)
     out["full stops"] = style.rstrip().endswith(".") and scene.rstrip().endswith(".")
     # Nothing but the prompt; the fence itself is scored above.
@@ -377,7 +377,7 @@ def run_case(model, case, system, ctx, seed):
 
 
 GOOD = ("```\nStyle: an oil painting with heavy impasto, a warm muted palette, brooding.\n"
-        "A red fox crosses deep snow in the lower third of the frame.\n```")
+        "Scene: A red fox crosses deep snow in the lower third of the frame.\n```")
 
 ALTS = "\n".join(f"- **Style {n}**: a description of the look. "
                  f"`Style: a medium with a technique, a restrained palette, moody.`"
@@ -394,12 +394,12 @@ SELFTEST = [
      GOOD.replace("```\nStyle:", "Style:").replace("frame.\n```", "frame.\n```", 1)
          .replace("brooding.\n", "brooding.\n```\n"),
      {"fenced block": False}),
-    ("blank line between", GOOD.replace(".\nA red", ".\n\nA red"), {"no blank line": False}),
-    # A real reply from qwen3.5:9b, which labelled the scene and passed every other check.
-    ("scene labelled", GOOD.replace("\nA red fox", "\nScene: A red fox"),
-     {"no scene label": False, "lower case": True}),
-    ("scene labelled, lower case", GOOD.replace("\nA red fox", "\nscene: a red fox"),
-     {"no scene label": False}),
+    ("blank line between", GOOD.replace(".\nScene:", ".\n\nScene:"), {"no blank line": False}),
+    # The label is now required, so its absence is the fault.
+    ("scene unlabelled", GOOD.replace("\nScene: A red fox", "\nA red fox"),
+     {"Scene: prefix": False}),
+    ("scene label lower case", GOOD.replace("\nScene: A red fox", "\nscene: A red fox"),
+     {"Scene: prefix": False}),
     ("no full stop", GOOD.replace("brooding.", "brooding"), {"full stops": False}),
     ("upper case after label", GOOD.replace("an oil", "An oil"), {"lower case": False}),
     ("proper noun opens", GOOD.replace("an oil painting", "Japanese woodblock print"), {}),
@@ -465,9 +465,9 @@ def selftest():
         ("off topic refused", check_offtopic, "That is off-topic for me.",
          {"answers it": False, "no refusal": False}),
         ("style change keeps elements", check_style_change,
-         f"```\nStyle: a woodblock print, flat ink, austere.\n{prior[1]}\n```", {}),
+         f"```\nStyle: a woodblock print, flat ink, austere.\nScene: {prior[1]}\n```", {}),
         ("style change loses them", check_style_change,
-         "```\nStyle: a woodblock print, flat ink, austere.\nA heron wades a marsh.\n```",
+         "```\nStyle: a woodblock print, flat ink, austere.\nScene: A heron wades a marsh.\n```",
          {"elements kept": False}),
         ("alternatives, marked", check_alternatives, ALTS, {}),
         ("alternatives, unmarked", check_alternatives, ALTS.replace("`", ""), {}),

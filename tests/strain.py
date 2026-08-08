@@ -95,6 +95,10 @@ def main():
         epilog="""Give --systems two files to compare a change against what it replaced; give it
 one to time the deliverable as it stands. OLLAMA_HOST moves the server.
 
+Seeds are pooled, and the default is three of them because one is not a measurement. Every
+comparison here once defaulted to seed 1, which turned out to be a systematically bad draw:
+the same rules and prompts kept 82% of checks at seed 1 and 97% at seeds 2 and 3.
+
 The 8k default is what the front end the deliverable is written for provides, and raising it
 measures something a user will not have. Read `lost` before reading the times: a run that
 returns no answer at all still contributes a duration, and at 8k with thinking on that is a
@@ -115,8 +119,9 @@ anything measured against it.""")
                         help="comma-separated system-prompt files (default: the deliverable)")
     parser.add_argument("--models", required=True, help="comma-separated Ollama models")
     parser.add_argument("--ctx", type=int, default=8192, help="context window (default: 8192)")
-    parser.add_argument("--seed", type=int, default=1, help="fixed, so the ruleset is the only "
-                                                            "thing that differs")
+    parser.add_argument("--seeds", default="1,2,3",
+                        help="comma-separated seeds, pooled (default: 1,2,3). One seed is not a "
+                             "measurement: seed 1 alone scored 82%% where 2 and 3 scored 97%%")
     parser.add_argument("--no-think", action="store_true",
                         help="the configuration score.py measures; thinking is on by default")
     parser.add_argument("--out", help="write every reply here as JSON")
@@ -125,24 +130,27 @@ anything measured against it.""")
     cases = prompts(args.prompts)
     systems = [(os.path.basename(p), open(p, encoding="utf-8").read())
                for p in args.systems.split(",")]
+    seeds = [int(s) for s in args.seeds.split(",") if s.strip()]
     rows, saved = [], []
     for model in args.models.split(","):
         for label, system in systems:
             got = []
-            for index, (text, given) in enumerate(cases, 1):
-                try:
-                    result = ask(model, system, text, args.ctx, args.seed, not args.no_think,
-                                 given)
-                except Exception as error:  # one bad case should not lose the run
-                    print(f"  {model} {label} #{index}: {error}", flush=True)
-                    continue
-                got.append(result)
-                saved.append({"model": model, "system": label, "case": index, **result})
-                print(f"  {model:<20} {label:<24} #{index:<3} {result['seconds']:6.1f}s  "
-                      f"think {result['think_chars']:6d}c  out {result['eval']:5d}t  "
-                      f"style {str(result['style_words']):>4}  "
-                      f"kept {result['kept']}/{result['asked']}"
-                      f"{'  ANSWER LOST' if result['lost'] else ''}", flush=True)
+            for seed in seeds:
+                for index, (text, given) in enumerate(cases, 1):
+                    try:
+                        result = ask(model, system, text, args.ctx, seed, not args.no_think,
+                                     given)
+                    except Exception as error:  # one bad case should not lose the run
+                        print(f"  {model} {label} s{seed} #{index}: {error}", flush=True)
+                        continue
+                    got.append(result)
+                    saved.append({"model": model, "system": label, "seed": seed,
+                                  "case": index, **result})
+                    print(f"  {model:<20} {label:<22} s{seed} #{index:<3} "
+                          f"{result['seconds']:6.1f}s  think {result['think_chars']:6d}c  "
+                          f"out {result['eval']:5d}t  style {str(result['style_words']):>4}  "
+                          f"kept {result['kept']}/{result['asked']}"
+                          f"{'  ANSWER LOST' if result['lost'] else ''}", flush=True)
             if got:
                 rows.append((model, label, got))
 

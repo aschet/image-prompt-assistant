@@ -28,6 +28,10 @@ reordered or dropped; the two-line block and the features are not.
   any word in it. Restating a convention the model has already read is a different thing and does
   nothing — revisions drop the fence a third of the time, and naming it in the revision rule moved
   nothing over five seeds.
+- Where models keep producing what a rule forbids, try requiring it. The scene line was told to
+  take no label, and five models kept writing "Scene:" anyway; labelling both lines beat
+  forbidding one across three seeds and was perfect on two of them. A prohibition the models
+  push back on is worth re-reading as a preference they do not share.
 - Prefer generative instructions to checks. Naming five registers assigns variety; asking for
   variety makes the model audit a finished list. A fixed count removes a decision; "at most six"
   adds one.
@@ -102,6 +106,10 @@ what those cannot say.
   returned nothing usable for a request it had just answered perfectly, and answered one request
   type in another's format. Test small models to find an ambiguous wording, never to decide
   whether one works.
+- One seed is not a measurement, and a fixed seed can be quietly bad. Every comparison here
+  defaulted to seed 1 until the same rules and prompts scored 82% of checks at seed 1 and 97% at
+  seeds 2 and 3 — so every absolute rate read from it was pessimistic and every difference
+  noisier than it looked. `strain.py` pools three seeds by default for that reason.
 - The noise floor is high and was measured, not guessed: nothing sets a temperature, so a run
   inherits the model's own, and three seeds with nothing else changed moved two models by 9 and
   16 points out of 88. A sweep's aggregate is steady enough to read; one model's score is not,
