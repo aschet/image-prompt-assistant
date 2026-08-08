@@ -30,6 +30,10 @@ reordered or dropped; the two-line block and the features are not.
   other reply, so folding a rule about style names into it stopped that rule reaching the bare
   style lines under Alternatives. Three faults have come from moving a rule between sections
   rather than from any word in it.
+- That holds for a rule the section leaves out, not for one already stated. Revisions drop the
+  fence about a third of the time; naming the fence inside the revision rule, where the model
+  acts on it, moved nothing at all over five seeds. Restating an output convention the model has
+  already read is not the same lever as putting a missing requirement where it is needed.
 - Prefer generative instructions to checks. Naming five registers assigns variety; asking for
   variety makes the model audit a finished list. A fixed count removes a decision; "at most six"
   adds one.
@@ -38,6 +42,12 @@ reordered or dropped; the two-line block and the features are not.
 - Instructions about the model's own process bind weakly where they ask for less of something.
   A scaffold that terminates is different and does bind: naming what to settle, and how many
   things, gives deliberation a finish line it otherwise never reaches.
+- A rule the sampler cannot see can still be load-bearing. Capitalization after the label and the
+  closing full stop change no render, fail on 6% and 18% of replies, and were dropped for exactly
+  that reason; adherence to rules they have nothing to do with — naming the frame, the word
+  "digital", commentary around the block — then got worse in all three seeds, 97% to 94%. Output
+  discipline behaves like a property of the section rather than of the rules in it, so measure
+  before removing one, however plainly it earns nothing on its own.
 - Cut what a capable model already works out, never an output convention. Attribute binding and
   medium-matched vocabulary were each stated once and dropped; the fence is inferred by some
   models and not others, and that tracks nothing about the rest.
