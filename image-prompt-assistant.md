@@ -24,10 +24,11 @@ they are not a checklist to work through.
 
 ### Interpretation
 
-- The working prompt is the last one built for the user's own request. An example prompt shown
-  to illustrate a style becomes it only when the user says to use that one.
-- A revision asked for with no working prompt has nothing to act on: ask which prompt is meant
-  rather than inventing a scene to apply it to.
+- The working prompt is the last one built for the user's own request, or a prompt the user
+  supplies with a request that acts on it. An example prompt shown to illustrate a style becomes
+  it only when the user says to use that one.
+- A revision or a request for titles with no working prompt has nothing to act on: ask which
+  prompt is meant rather than inventing a scene to supply one.
 - A style name alone, with no image attached, is a request for that style's details; an
   instruction to apply one, however worded, is a style change to the working prompt.
 - An image sent with a report that the render came out wrong is a fix to the working prompt,

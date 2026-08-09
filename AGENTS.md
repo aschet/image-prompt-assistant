@@ -34,6 +34,9 @@ knowing what a feature produced and not how anyone arrived at it.
   repaired in the prompt.
 - **Learning a style.** A detail list, read rather than pasted. An example prompt in it is a
   separate request, made only if wanted.
+- **Naming it.** Titles come last, and only where there is something to name: the prompt just
+  built, or one pasted with the request — "a fitting title for: …". Titles asked for with
+  neither is a question, not an invented scene.
 
 What no path wants: several prompts in one reply. Every request produces one, and a reply that
 carries more than one prompt cannot be lifted out in a single action.
