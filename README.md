@@ -51,18 +51,17 @@ The rules were developed with Claude Opus 5, and Claude Sonnet 5 is the primary 
   you.
 - The prompts were tested mainly against Krea 2, so anything claimed here about what a sampler
   does was seen there first.
-- Reading an image needs a model with vision and needs it to be good at it — one model here
-  keeps 98% of the rules and recovers barely half of what a picture shows.
+- Reading an image needs a model with vision and needs it to be good at it. That is its own axis:
+  a model can hold nearly every rule and still recover half of what a picture shows, and two
+  models of one size can sit at either end of it.
 
 ## Local Models
 
 Test the model you mean to use. 4B is the requirement and 8B the recommendation, and what
-separates them is not the format but knowing which request it is answering. A 4.7B keeps 85% of
-the checks and a 5.1B 77%, both writing the two labelled lines well — and nearly every loss is a
-request that is not a prompt request being answered with a prompt anyway: a style name, a request
-for titles with nothing yet to name, a style change to an example it should have asked about. One
-of them did that on five requests out of five. Below 4B even the format goes: a 2.3B keeps a
-third of the checks, and a 0.87B answered a request for a style's details with a prompt.
+separates them is not the format but knowing which request is being answered. Around 4B a model
+writes the two labelled lines well and still answers a style name, or a request for titles with
+nothing yet to name, with a prompt anyway: the format survives where the routing does not. Below
+4B neither does.
 
 Which is to say stated size predicts less than it looks. Most large models are mixtures of experts
 running a fraction of their weights at a time, so a 5B dense model can hold the rules better than

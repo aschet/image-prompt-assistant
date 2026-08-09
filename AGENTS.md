@@ -8,7 +8,9 @@ is not finished until the README matches it.
 The README is an overview, not documentation: what the thing does, how to use it, what it cannot
 do, how to score a model of your own. It never restates a rule the prompt file carries, since two
 statements of one rule drift. It keeps the observations about local models, so nobody
-sweeps to learn what to download, and links to `MODELS.md` for the scores. Reasoning about how a
+sweeps to learn what to download, and links to `MODELS.md` for the scores. The observations carry
+no measurement: a percentage in the README is a line that has to be rewritten every sweep, which
+is what the generated page exists to avoid. Reasoning about how a
 rule was arrived at belongs here. `MODELS.md` is written whole by `tests/table.py` and never
 edited: a generated table spliced into a page of prose is how a stale one got published once.
 
