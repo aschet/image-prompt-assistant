@@ -19,6 +19,25 @@ What each feature is for, which the rules cannot say and a reply cannot show:
 
 A feature failing its checks is worth repairing only if it still serves one of these.
 
+The paths those features are reached by, which is where they have gone wrong. Drafted from one
+session with the author and worth his correcting: every mistake here came from knowing what a
+feature produced and not how anyone arrived at it.
+
+- **Style first.** "What styles suit a winter forest?" — five alternatives. "A winter forest in
+  that gouache style" — the subject is stated again rather than carried, and this is an ordinary
+  request to develop an idea. Then edits.
+- **Prompt first.** An idea or a rough prompt is expanded, then changed one thing at a time: add
+  something to the background, move what carries the frame, swap the medium, tighten the whole.
+- **Image first.** An image the author liked is reverse-engineered, and the prompt that comes
+  back is then edited like any other.
+- **A render that went wrong.** The fault is described rather than the fix, and the cause is
+  repaired in the prompt.
+- **Learning a style.** A detail list, read rather than pasted. An example prompt in it is a
+  separate request, made only if wanted.
+
+What no path wants: several prompts in one reply. Every request produces one, and a reply that
+carries more than one prompt cannot be lifted out in a single action.
+
 ## Changing a Rule
 
 - Length is not what a rule costs. Reading the rules is one batched pass; deliberating over them
