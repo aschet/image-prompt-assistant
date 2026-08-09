@@ -33,8 +33,11 @@ Paste `image-prompt-assistant.md` into an assistant's system prompt or custom in
 is written to stand alone and depends on no other file.
 
 Give the model at least 8k of context, and turn extended thinking off where the front end offers
-it: the rules hold without it, a prompt comes back in about three seconds instead of fifty, and a
-model left deliberating in a small context can spend the whole of it and return nothing.
+it. That is the one setting that decides how long a prompt takes: nearly all the time goes into
+deliberating over the rules rather than into writing the answer, and the rules are kept just as
+well without it — every model measured here came back many times faster and no less correct.
+Left on in a small context, a model can spend the whole context deliberating and return nothing
+at all.
 
 Prompts are composed for a 3:4 portrait frame — change the default in the Wording section if you
 work in another shape. Where you leave the style open, it picks a painting, illustration or print
