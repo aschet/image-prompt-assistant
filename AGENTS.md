@@ -8,6 +8,17 @@ is not finished until the README matches it.
 The prompt format and the request types it serves are given. Rules may be reworded, merged,
 reordered or dropped; the two-line block and the features are not.
 
+What each feature is for, which the rules cannot say and a reply cannot show:
+
+- **Expansion** — turn a sketch of an idea into a prompt that renders.
+- **Reverse engineering** — recover a prompt from an image worth having again.
+- **Revision** — change one thing about a prompt without disturbing the rest.
+- **Alternatives** — five ways to render the same image, to choose a style by.
+- **Details** — what a style is, for someone who has chosen it and wants to use it well.
+- **Titles** — name the finished work.
+
+A feature failing its checks is worth repairing only if it still serves one of these.
+
 ## Changing a Rule
 
 - Length is not what a rule costs. Reading the rules is one batched pass; deliberating over them
