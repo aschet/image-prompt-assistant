@@ -8,8 +8,8 @@ does not generate images.
 
 - Expands an existing prompt, or develops an idea into one
 - Reverse-engineers a prompt from one or more images
-- Revises a prompt, rewrites it as an optimization pass, adapts it to another aspect ratio, or
-  varies the scene while holding the style
+- Revises a prompt: a style change, a targeted edit, an optimization pass, or an adaptation to
+  another aspect ratio
 - Fixes a prompt from a render that came out wrong, diagnosing the cause from what you describe
 - Suggests styles — alternatives for a prompt, or examples within a category — each with a
   ready-to-paste style line
@@ -79,7 +79,8 @@ mechanically: the output format, the prohibitions, whether each request reaches 
 section, and how much of a prompt survives a revision. `tests/strain.py` times what following
 the rules costs, which is a separate question — a model can keep every rule and still take a
 minute per prompt. It times the expansion path against Krea 2's own expansion prompt, so a
-figure in seconds still means something on another machine. Whether a judgment is right, or a render any good, stays with you.
+figure in seconds still means something on another machine. Whether a judgment is right, or a
+render any good, stays with you.
 
 Measured on a Ryzen 7 7700 with an RTX 4070 (12 GB) and 64 GB of RAM, at an 8k context and a
 fixed seed. Read the bands, not the ranking: nothing sets a sampling temperature, so a score is
