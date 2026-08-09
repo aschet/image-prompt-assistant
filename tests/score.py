@@ -552,14 +552,16 @@ def report(rows, out=None):
                   f"Over {len(VISION_CASES)} source images, one per medium. Light is asked only",
                   "of sources with a direction to read, and a palette only of sources that have",
                   "one — ink on cream has neither.", "",
-                  "| Model | " + " | ".join(k.title() for k in keys) + " | Kept |",
-                  "| --- |" + " --- |" * (len(keys) + 1)]
+                  "| Model | " + " | ".join(k.title() for k in keys) + " | Kept | Verdict |",
+                  "| --- |" + " --- |" * (len(keys) + 2)]
         for model, *_rest, pair in vision_rows:
             seen, asked = pair
             marks = " | ".join(f"{seen[k]}/{asked[k]}" for k in keys)
             got, want = sum(seen[k] for k in keys), sum(asked[k] for k in keys)
+            # Its own verdict, on the same thresholds: reading an image is a capability apart,
+            # and a model can be worth recommending for one of the two and not the other.
             table.append(f"| `{model['name']}` | {marks} | "
-                         f"{got}/{want} ({got / want:.0%}) |")
+                         f"{got}/{want} ({got / want:.0%}) | {verdict(got / want, True)} |")
 
     text = "\n".join(table)
     print("\n" + text)
