@@ -201,7 +201,11 @@ the rungs in; what follows is only what those cannot say.
   and the lowest score of all belonged to an 8B. A small model fails in kind rather than in
   degree — a 4.7B returned nothing usable for a request it had just answered perfectly, and
   answered one request type in another's format — so test one to find an ambiguous wording, never
-  to decide whether it works. Below about 4B nothing holds: a 2.3B kept a third of the checks.
+  to decide whether it works. 4B is the requirement and 8B the recommendation: below 4B nothing
+  holds, a 2.3B keeping a third of the checks; between them the format survives and features do
+  not, a 4.7B keeping 86% of the checks while failing every alternative-styles check, beside a
+  5.1B at 98%. A score alone will not show that, so read which checks failed and not only how
+  many.
 - One seed is not a measurement. Nothing sets a temperature, so a run inherits the model's own:
   three seeds with nothing else changed moved two models by 9 and 16 points out of 88, and one
   five-model comparison scored 82% of checks at its first seed and 97% at the other two. No seed

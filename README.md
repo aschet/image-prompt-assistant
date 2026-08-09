@@ -53,13 +53,18 @@ The rules were developed with Claude Opus 5, and Claude Sonnet 5 is the primary 
 
 ## Local Models
 
-Test the model you mean to use, but three things hold generally. Below about 4B a model falls
-apart rather than degrading: a 2.3B keeps a third of the checks and a 0.87B answered a request
-for a style's details with a prompt instead. Stated size predicts less than it looks — most large
-models are mixtures of experts running a fraction of their weights at a time, so a 5B dense model
-can hold the rules better than a 30B that activates four experts of sixty-four, and here it does.
-What size predicts reliably is speed: on a 12 GB card a mixture runs at 41–62 tok/s whatever its
-total, while dense weights above 20B spill to the processor and fall to 6.
+Test the model you mean to use. 4B is the requirement and 8B the recommendation, and the gap
+between them is where the difference shows: below 4B a model falls apart rather than degrading —
+a 2.3B keeps a third of the checks, a 0.87B answered a request for a style's details with a
+prompt — while from 4B to 8B the two-line format holds and whole features drop out instead. One
+4.7B kept 86% of the checks with every alternative-styles check among the failures, and a 5.1B
+beside it kept 98%. From 8B up the features hold as well as the format.
+
+Which is to say stated size predicts less than it looks. Most large models are mixtures of experts
+running a fraction of their weights at a time, so a 5B dense model can hold the rules better than
+a 30B that activates four experts of sixty-four, and here it does. What size predicts reliably is
+speed: on a 12 GB card a mixture runs at 41–62 tok/s whatever its total, while dense weights above
+20B spill to the processor and fall to 6.
 
 [MODELS.md](MODELS.md) carries the scores for every model tested here, written
 straight from a saved sweep so nothing in it is transcribed by hand.
