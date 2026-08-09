@@ -5,6 +5,13 @@ instructions. It must stand alone — no rule may reference another file, and no
 available at runtime. `README.md` states the same behavior for a reader, and a change to the rules
 is not finished until the README matches it.
 
+The README is an overview, not documentation: what the thing does, how to use it, what it cannot
+do, and how to score a model of your own. It never re-explains a rule the prompt file already
+carries — that file is the specification, and two statements of one rule drift. What it does keep
+is what a reader cannot get anywhere else: the general observations about local models, and the
+measured table, so nobody has to run a sweep to know what is worth downloading. Anything that is
+reasoning about how a rule was arrived at belongs here instead.
+
 The prompt format and the request types it serves are given. Rules may be reworded, merged,
 reordered or dropped; the two-line block and the features are not.
 

@@ -16,32 +16,16 @@ does not generate images.
 - Explains a style in detail, or gives an example prompt in it
 - Proposes titles
 
-## Output Format
-
 Every prompt comes back as two labelled lines, with no commentary and no markup around them:
 
 ```
 Style: a gouache illustration with matte chalky coverage, flat layered shapes, a cool restrained palette, still and wintry in mood.
-Scene: A red fox stands in profile mid-stride on unbroken snow in the lower third of the frame, one forepaw lifted, its tail held low and level behind it. Its coat runs rust-orange along the back and shoulders, fading to cream at the throat, with black stockings on all four legs. Shallow prints trail back from its hind paws to the left edge. Directly behind, the ground rises in three pale drifts, each fainter than the last, and a stand of thin dark trunks crosses the middle distance. The slope continues to a low ridgeline near the top edge, where a narrow band of overcast sky closes the frame. Soft even light falls without shadow, thin mist gathering between the trunks, and a single crow sits high on a bare branch at the right.
+Scene: A red fox stands in profile mid-stride on unbroken snow in the lower third of the frame, one forepaw lifted, its coat rust-orange along the back and cream at the throat. Behind it the ground rises in three pale drifts and thin dark trunks cross the middle distance, closing on a narrow band of overcast sky. Soft even light falls without shadow.
 ```
 
-The `Style:` line carries the medium, how it is worked, the palette and the mood, in about twenty
-words, naming a movement or artist only where that changes what the image looks like. The
-`Scene:` line carries everything else — what is depicted, its attributes, placement, framing,
-atmosphere and the light in the scene.
-
-The split is the whole point. A style line must apply unchanged to any other scene, so it can be
-swapped without disturbing what the image shows.
-
-## Defaults
-
-Prompts are composed for a 3:4 portrait frame. The aspect ratio is
-never named in the prompt itself — it is a generation setting, and stating it would only spend
-words the sampler ignores. Change the default frame in the Wording section if you work in
-another shape.
-
-Where you leave the style open, it picks a painting, illustration or print medium. Photography
-is never its own choice — ask for it and you get it.
+The style line carries the medium, how it is worked, the palette and the mood; the scene line
+carries everything else. The split is the point: a style line must apply unchanged to any other
+scene, so it can be swapped without disturbing what the image shows.
 
 ## Use
 
@@ -49,44 +33,39 @@ Paste `image-prompt-assistant.md` into an assistant's system prompt or custom in
 is written to stand alone and depends on no other file.
 
 Give the model at least 8k of context, and turn extended thinking off where the front end offers
-it. The rules are held just as well without it and a prompt comes back in about three seconds
-instead of fifty, measured on the same file and the same machine. Left on, a model can spend the
-whole context deliberating and return an empty reply rather than a short one.
+it: the rules hold without it, a prompt comes back in about three seconds instead of fifty, and a
+model left deliberating in a small context can spend the whole of it and return nothing.
 
-The block carries no code fence and no backticks. Seven ways of asking for a fence were
-measured and models emitted one unreliably — `gemma4:e4b` managed it 5 times in 51, and
-`qwen3.5:9b` dropped it on a third of revisions. Two labelled lines need no delimiter, and a
-reply that is nothing but the prompt copies in one action from any client that offers to copy a
-message.
+Prompts are composed for a 3:4 portrait frame — change the default in the Wording section if you
+work in another shape. Where you leave the style open, it picks a painting, illustration or print
+medium; photography is never its own choice, so ask for it and you get it.
 
-The rules were developed with Claude Opus 5, and Claude Sonnet 5 is the primary target. The
-prompts were tested mainly against Krea 2, so anything claimed here about what a sampler does
-was seen there first.
+The rules were developed with Claude Opus 5, and Claude Sonnet 5 is the primary target.
 
-For a local model, test the one you mean to use. A model's stated size predicts less than it
-looks: most large ones are mixtures of experts running a fraction of their weights at a time, so a
-5B dense model can hold the rules better than a 30B that activates four experts of sixty-four, and
-here it does, down to about 4B. Below that it falls apart rather than degrading: a 2.3B keeps a
-third of the checks and a 0.87B answered a request for a style's details with a prompt instead.
-What size predicts reliably is speed: on a 12 GB card a mixture runs at 41–62 tok/s whatever its
-total, while dense weights above 20B spill to the processor and fall to 6. Reading an image needs
-a model with vision and needs it to be good at it — one model here keeps 98% of the rules and
-recovers barely half of what a picture shows.
+## Limitations
+
+- It writes prompts. Whether one renders well, and whether the result is any good, stays with
+  you.
+- The prompts were tested mainly against Krea 2, so anything claimed here about what a sampler
+  does was seen there first.
+- Reading an image needs a model with vision and needs it to be good at it — one model here
+  keeps 98% of the rules and recovers barely half of what a picture shows.
 
 ## Local Models
 
-`tests/score.py` runs every request type against a local Ollama model and checks the reply
-mechanically: the output format, the prohibitions, whether each request reaches the right
-section, and how much of a prompt survives a revision. `tests/strain.py` times what following
-the rules costs, which is a separate question — a model can keep every rule and still take a
-minute per prompt. It times the expansion path against Krea 2's own expansion prompt, so a
-figure in seconds still means something on another machine. Whether a judgment is right, or a
-render any good, stays with you.
+Test the model you mean to use, but three things hold generally. Below about 4B a model falls
+apart rather than degrading: a 2.3B keeps a third of the checks and a 0.87B answered a request
+for a style's details with a prompt instead. Stated size predicts less than it looks — most large
+models are mixtures of experts running a fraction of their weights at a time, so a 5B dense model
+can hold the rules better than a 30B that activates four experts of sixty-four, and here it does.
+What size predicts reliably is speed: on a 12 GB card a mixture runs at 41–62 tok/s whatever its
+total, while dense weights above 20B spill to the processor and fall to 6.
 
 Measured on a Ryzen 7 7700 with an RTX 4070 (12 GB) and 64 GB of RAM, at an 8k context and a
 fixed seed. Read the bands, not the ranking: nothing sets a sampling temperature, so a score is
 one draw — three seeds moved two models by 9 and 16 points out of 88. Speed will not carry to
-another machine; Rules Kept will.
+another machine; Rules Kept will. Reverse engineering is scored apart, since only a model with
+vision can attempt it.
 
 <!-- tables:start -->
 
@@ -125,10 +104,7 @@ one — ink on cream has neither.
 
 <!-- tables:end -->
 
-The first table is text only, so every model answers the same cases. The two below it hold what
-only a model with vision can attempt, kept apart so a capability is never averaged into a score.
-
-### Scoring Your Own Model
+## Scoring Your Own Model
 
 Python 3 and a running Ollama server, nothing else to install:
 
@@ -138,15 +114,15 @@ python3 tests/score.py --models all --verify --free --unload
 
 `--verify` skips a model whose repeated reply differs, which means something else is using the
 machine; `--free` unloads a running ComfyUI, which otherwise takes the memory the model needs.
-Name a model instead of `all` to score just that one, and see `--help` for the rest. A failing
-check names the rule it came from.
+Name a model instead of `all` to score one, and see `--help` for the rest; a failing check names
+the rule it came from. `tests/strain.py` answers the separate question of what following the
+rules costs in time, which a score does not tell you.
 
 ## License
 
 © 2026 Thomas Ascher. Licensed under [CC BY 4.0](LICENSE) — use, adapt and redistribute it,
 including commercially, provided you give credit.
 
-One file is not covered by that. `tests/reference/expansion.txt` is Krea 2's own prompt-expansion
+`tests/reference/expansion.txt` is not covered by that: it is Krea 2's own prompt-expansion
 system prompt, copied unmodified from [krea-ai/krea-2](https://github.com/krea-ai/krea-2) and
-licensed under Apache 2.0; its licence sits beside it. It is kept only as a speed floor for
-`tests/strain.py` and is no part of the deliverable.
+licensed under Apache 2.0, with its licence beside it.
