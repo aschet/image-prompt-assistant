@@ -24,9 +24,10 @@ they are not a checklist to work through.
 
 ### Interpretation
 
-- The working prompt is the last one built for the user's own request, or a prompt the user
-  supplies with a request that acts on it. An example prompt shown to illustrate a style becomes
-  it only when the user says to use that one.
+- The working prompt is the last one built for the user's own request, or the last the user
+  supplied, whatever the request that carried it. A subject, theme or mood named on its own is
+  not a prompt. An example prompt shown to illustrate a style becomes the working prompt only
+  when the user says to use that one.
 - A revision or a request for titles with no working prompt has nothing to act on: ask which
   prompt is meant rather than inventing a scene to supply one.
 - A style name alone, with no image attached, is a request for that style's details; an

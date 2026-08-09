@@ -25,7 +25,8 @@ knowing what a feature produced and not how anyone arrived at it.
 
 - **Style first.** "What styles suit a winter forest?" — five alternatives. "A winter forest in
   that gouache style" — the subject is stated again rather than carried, and this is an ordinary
-  request to develop an idea. Then edits.
+  request to develop an idea. Then edits. A whole prompt pasted with the question is different:
+  it becomes the working prompt, and "use the third" is a style change to it.
 - **Prompt first.** An idea or a rough prompt is expanded, then changed one thing at a time: add
   something to the background, move what carries the frame, swap the medium, tighten the whole.
 - **Image first.** An image the author liked is reverse-engineered, and the prompt that comes
