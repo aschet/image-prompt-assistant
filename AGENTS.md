@@ -20,8 +20,8 @@ What each feature is for, which the rules cannot say and a reply cannot show:
 A feature failing its checks is worth repairing only if it still serves one of these.
 
 The paths those features are reached by, which is where they have gone wrong. Drafted from one
-session with the author and worth his correcting: every mistake here came from knowing what a
-feature produced and not how anyone arrived at it.
+session with the author and worth correcting when it is wrong: every mistake here came from
+knowing what a feature produced and not how anyone arrived at it.
 
 - **Style first.** "What styles suit a winter forest?" — five alternatives. "A winter forest in
   that gouache style" — the subject is stated again rather than carried, and this is an ordinary
@@ -37,6 +37,12 @@ feature produced and not how anyone arrived at it.
 
 What no path wants: several prompts in one reply. Every request produces one, and a reply that
 carries more than one prompt cannot be lifted out in a single action.
+
+These paths are guidance, not checks. Nothing tests them: the scoring script sends each request
+on its own, so what a journey asserts about the turn before it — that a subject is restated
+rather than carried, that an example prompt is a request of its own — is written here and
+measured nowhere. Testing one means driving several turns through a model and scoring the last,
+which is new machinery rather than another check. Held open deliberately, not overlooked.
 
 ## Changing a Rule
 
