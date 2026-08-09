@@ -741,6 +741,13 @@ with --rescore instead of costing another sweep.""")
         print("smoke: " + ", ".join(m["name"] for m in chosen), flush=True)
 
     rows, transcript = [], {}
+    # Emptied before the first model and rewritten after each one. A sweep that dies partway
+    # used to leave the previous run's file untouched, and table.py then rescored replies from
+    # a format the rules no longer produced — every one of them failing checks that did not
+    # exist when they were written. A stale transcript is worse than none.
+    if args.transcript:
+        with open(args.transcript, "w", encoding="utf-8") as handle:
+            json.dump({}, handle)
     for model in chosen:
         print(f"\n########## {model['name']} ##########", flush=True)
         warm(model, system, args.ctx, args.seed)
@@ -785,6 +792,9 @@ with --rescore instead of costing another sweep.""")
                      (seen, asked) if seen is not None else None))
         transcript[model["name"]] = {"caps": model["caps"], "size": model["size"],
                                      "rate": rate, "said": said}
+        if args.transcript:
+            with open(args.transcript, "w", encoding="utf-8") as handle:
+                json.dump(transcript, handle, indent=1)
         if args.unload:
             ask.unload(model["name"])
 

@@ -9,6 +9,7 @@ rebuilt. This rebuilds them from the saved transcript, which is why every sweep 
 import argparse
 import contextlib
 import io
+import json
 import os
 import re
 import sys
@@ -56,6 +57,12 @@ stays in the transcript, which is the evidence and is never edited.""")
     parser.add_argument("--print", action="store_true", help="print them instead of writing")
     args = parser.parse_args()
 
+    # score.py empties the transcript before its first model, so an empty one means the sweep
+    # died before finishing a single model. Rebuilding from it would publish nothing measured.
+    saved = json.load(open(args.transcript, encoding="utf-8"))
+    if not saved:
+        sys.exit(f"{args.transcript} is empty: the sweep that should have written it did not "
+                 f"finish a model. Rerun it rather than rebuilding from this.")
     built = tables(args.transcript, [d for d in args.drop.split(",") if d])
     if args.print:
         print(built)
