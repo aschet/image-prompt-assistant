@@ -69,8 +69,10 @@ a 30B that activates four experts of sixty-four, and here it does. What size pre
 speed: on a 12 GB card a mixture runs at 41–62 tok/s whatever its total, while dense weights above
 20B spill to the processor and fall to 6.
 
-[MODELS.md](MODELS.md) carries the scores for every model tested here, written
-straight from a saved sweep so nothing in it is transcribed by hand.
+[MODELS.md](MODELS.md) carries the scores for every model tested here, written straight from a
+saved sweep so nothing in it is transcribed by hand. Read the bands rather than the ranking:
+nothing sets a sampling temperature, so a score is one draw and the same model moves between
+runs. Speed belongs to the machine it was measured on; rules kept does not.
 
 ## Scoring Your Own Model
 

@@ -18,6 +18,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT)
 
 import ask
+import hardware
 
 # A style line may open with a proper adjective; anything else upper case is the rule ignored.
 PROPER = {"japanese", "chinese", "french", "italian", "dutch", "german", "flemish", "spanish",
@@ -811,8 +812,13 @@ with --rescore instead of costing another sweep.""")
 
         rows.append((model, score, passed, total, rate, seconds, failures,
                      (seen, asked) if seen is not None else None))
+        # The machine is recorded per model, at the moment it was measured: a transcript can be
+        # rebuilt into a table anywhere, and the hardware that produced the numbers is not
+        # whatever hardware happens to be running table.py.
         transcript[model["name"]] = {"caps": model["caps"], "size": model["size"],
-                                     "rate": rate, "said": said}
+                                     "rate": rate, "machine": hardware.describe(),
+                                     "ctx": args.ctx, "seed": args.seed,
+                                     "said": said}
         if args.transcript:
             with open(args.transcript, "w", encoding="utf-8") as handle:
                 json.dump(transcript, handle, indent=1)

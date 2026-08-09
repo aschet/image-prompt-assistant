@@ -179,10 +179,19 @@ reporting the change as tested.
 `tests/table.py` publishes the scores. Each `--help` carries its own flags and the order to climb
 the rungs in; what follows is only what those cannot say.
 
-- `MODELS.md` is output, not a document. `python3 tests/table.py <transcript>` replaces the whole
-  file from a sweep's saved transcript, so never edit it, never transcribe a number into it, and
-  put any prose about it in the README instead — its own preamble lives in `table.py`. `--drop`
-  keeps a model out of the page while leaving it in the transcript, which is the evidence.
+- `MODELS.md` is a benchmark, not a document. `python3 tests/table.py <transcript>` replaces the
+  whole file from a sweep's saved transcript, so never edit it and never transcribe a number into
+  it; anything a reader should conclude goes in the README instead. Its heading line is the run's
+  own conditions, read back from the transcript: `score.py` records the machine, context and seed
+  beside every model as it measures it, since a transcript can be rebuilt into a table on
+  hardware that never ran it. `--drop` keeps a model off the page while leaving it in the
+  transcript, which is the evidence.
+- `tests/hardware.py` names the machine, standard library only, every probe failing soft to
+  "an unrecorded machine" rather than raising — a sweep is never worth losing to a hardware
+  string. It reads `/proc/cpuinfo`, `sysctl` or the Windows registry for the processor,
+  `nvidia-smi` or `rocm-smi` for the card, and rounds usable memory up to the capacity a machine
+  is sold with, since the kernel reports 61 GB on a 64 GB box. Only the Linux path has been run
+  here; run it alone to see what it reports elsewhere.
 - After a check changes, the page needs a new sweep rather than a rebuild. An old transcript
   rescored under checks its replies never faced reads as a collapse that never happened, and one
   was published and reverted that way.
