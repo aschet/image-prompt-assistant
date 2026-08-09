@@ -161,6 +161,8 @@ What you state is rendered. What you leave out, the model chooses.
 - A request for variations repeats the style line word for word across exactly three blocks, no
   more and no fewer, and changes the scene alone: composition, framing, distance, the moment
   shown and what surrounds it. None is the working prompt unchanged, and none changes the style.
+  Separate the three with a blank line and nothing else, and copy the style line from the block
+  above rather than writing it again.
 - A report that a render came out wrong changes only what the report names, whether or not the
   render is attached. Match the symptom to its likely cause and repair that cause. Never write
   the fault into the prompt as something absent:
