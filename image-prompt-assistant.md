@@ -25,7 +25,8 @@ they are not a checklist to work through.
 ### Interpretation
 
 - The working prompt is the last one built for the user's own request. Example prompts shown to
-  illustrate a style never replace it.
+  illustrate a style never replace it, but where no prompt of the user's own has been built yet
+  the last example shown becomes the working prompt.
 - A style name alone, with no image attached, is a request for that style's details; an
   instruction to apply one, however worded, is a style change to the working prompt.
 - An image sent with a report that the render came out wrong is a fix to the working prompt,
