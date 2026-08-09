@@ -6,11 +6,11 @@ available at runtime. `README.md` states the same behavior for a reader, and a c
 is not finished until the README matches it.
 
 The README is an overview, not documentation: what the thing does, how to use it, what it cannot
-do, and how to score a model of your own. It never re-explains a rule the prompt file already
-carries — that file is the specification, and two statements of one rule drift. What it does keep
-is what a reader cannot get anywhere else: the general observations about local models, and the
-measured table, so nobody has to run a sweep to know what is worth downloading. Anything that is
-reasoning about how a rule was arrived at belongs here instead.
+do, how to score a model of your own. It never restates a rule the prompt file carries, since two
+statements of one rule drift. It keeps the observations about local models, so nobody
+sweeps to learn what to download, and links to `MODELS.md` for the scores. Reasoning about how a
+rule was arrived at belongs here. `MODELS.md` is written whole by `tests/table.py` and never
+edited: a generated table spliced into a page of prose is how a stale one got published once.
 
 The prompt format and the request types it serves are given. Rules may be reworded, merged,
 reordered or dropped; the two-line block and the features are not.
@@ -26,10 +26,10 @@ What each feature is for, which the rules cannot say and a reply cannot show:
 
 A feature failing its checks is worth repairing only if it still serves one of these.
 
-The use cases those features are reached by, which is where they have gone wrong. Drafted from
-one session with the author and worth correcting when it is wrong: every mistake here came from
-knowing what a feature produced and not how anyone arrived at it. Each is a main success path in
-prose; the extensions after it are the branches, which is where the faults have actually been.
+The use cases those features are reached by, drafted from one session with the author and worth
+correcting when wrong: every mistake here came from knowing what a feature produced and not how
+anyone arrived at it. Each is a main success path in prose, and the extensions below it are the
+branches, which is where the faults have been.
 
 - **Style first.** "What styles suit a winter forest?" — five alternatives. "A winter forest in
   that gouache style" — the subject is stated again rather than carried, and this is an ordinary
@@ -52,14 +52,13 @@ prose; the extensions after it are the branches, which is where the faults have 
 What no path wants: several prompts in one reply. Every request produces one, and a reply that
 carries more than one prompt cannot be lifted out in a single action.
 
-A case in `tests/score.py` is one scenario through a use case, and is already Given / When /
-Then without saying so: the turns before the last are the Given, the last turn is the When, and
-the checker is the Then. Adding one is a `Case` entry and a checker, never new machinery. Keep
-the vocabulary and skip the tooling — a Gherkin layer would be a second source of truth for an
-audience of two, and would drift from the checkers that decide the score.
+A case in `tests/score.py` is one scenario through a use case, already Given / When / Then
+without saying so: the turns before the last are the Given, the last turn the When, the checker
+the Then. Keep the vocabulary and skip the tooling — a Gherkin layer would be a second source of
+truth for an audience of two, drifting from the checkers that decide the score.
 
-Extensions, and the scenario that covers each. A blank is a branch nobody has measured, which is
-how the ones already fixed were found:
+Extensions, and the scenario covering each. A blank is a branch nobody has measured, which is how
+the ones already fixed were found:
 
 | Use case | Extension | Scenario |
 | --- | --- | --- |
@@ -92,8 +91,9 @@ how the ones already fixed were found:
 - Naming a category makes it likelier, and a prohibition names it. Asking a detail list for the
   terms that decide an output, "never the equipment or the settings behind them", returned more
   equipment and settings than any wording that had left them unmentioned — aperture and ISO for
-  photography, linseed oil and canvas for paint. Say what to produce; describing what to avoid
-  puts it in front of the model.
+  photography, linseed oil and canvas for paint. A prohibition still needs the criterion beside
+  it, since a rule saying only what to do gets violated and one saying only what to avoid turns
+  into a generate-and-filter loop. What it must not do is name the category it excludes.
 - An option offered is read as the thing to produce. Letting a critique close with a revised
   prompt "where a working prompt is in play" made a model answer with the prompt and no critique
   at all. Require a second output or drop it, never make it conditional.
@@ -109,18 +109,15 @@ how the ones already fixed were found:
 - Prefer generative instructions to checks. Naming five registers assigns variety; asking for
   variety makes the model audit a finished list. A fixed count removes a decision; "at most six"
   adds one.
-- State the prohibition alongside the criterion. Rules that say only what to do get violated;
-  rules that say only what to avoid produce generate-and-filter loops.
 - A rule the sampler cannot see can still be load-bearing. Capitalization after the label and the
   closing full stop change no render and fail often, so both were dropped; adherence to unrelated
   rules then fell in all three seeds, 97% to 94%. Output discipline behaves like a property of the
   section rather than of the rules in it, so measure before removing one.
 - Cut what a capable model already works out, and keep an output convention only where models
-  can produce it. Attribute binding and medium-matched vocabulary were each stated once and
-  dropped. The fence was kept for the opposite reason and should not have been: seven wordings
-  failed to make it reliable, one model emitted it 5 times in 51 and another dropped it on a
-  third of revisions, and removing it took both to every reply. A convention the models cannot
-  hold is not a convention, it is a failure rate.
+  can produce it. Attribute binding and medium-matched vocabulary were stated once and dropped.
+  The fence was kept for the opposite reason and should not have been: seven wordings failed to
+  make it reliable, one model emitted it 5 times in 51, and removing it took every model to every
+  reply. A convention the models cannot hold is a failure rate.
 - A change is only safe where something can see it. A flat score is not evidence: either no check
   covers what moved, or nothing capable enough ran. One wording left two small models flat and
   made the strongest answer in coordinates.
@@ -137,9 +134,9 @@ how the ones already fixed were found:
 - A rule that adds or reshapes a request type or an output convention changes what
   `tests/score.py` checks, in the same commit, and `--smoke` runs before that commit. It costs
   minutes on the two smallest models and covers every request type, which no other quick check
-  does: dropping the code fence was measured on expansions and revisions, shipped, and only
-  later found to have broken variations on every model that had held it. The check that would
-  have caught it existed and was not run.
+  does: dropping the code fence was measured on expansions and revisions, shipped, and only later
+  found to have broken variations on every model that had held it — the check that would have
+  caught it existed and was not run.
 
 ## Internal Testing
 
@@ -152,6 +149,13 @@ skipped. Doing the work yourself is the second, and comes before any local model
   matching leaves a case that passes while testing nothing.
 - Confirm every request type resolves to exactly one section and every section is reachable from
   a request type. Scan for terminology drift, and for rules referencing rules that have gone.
+- Routing is scored by shape, never by name: a case is phrased as a user would phrase it, and its
+  checker asserts what only the right section produces, so a details reply arriving as five style
+  bullets fails on the labels. Read a new case that way — what would the wrong section produce
+  here, and does anything catch it?
+- Read the harness before calling a test impossible. `run_case` has always played several turns
+  and checked only the last, yet a multi-turn behaviour was twice called new machinery in one
+  session when it was a `Case` entry and a checker away.
 - Reading settles whether a rule is coherent, never whether a model obeys it. Where that is the
   open question, say so and offer the extended pass.
 - Answer the request yourself, following the rules as written rather than as you meant them. This
@@ -169,9 +173,17 @@ first pass has not yet asked. Where a server is not up, name what went unverifie
 reporting the change as tested.
 
 `tests/ask.py` puts the deliverable in front of a model, `tests/score.py` scores the reply,
-`tests/strain.py` times what following it costs, `tests/render.py` renders what it produces.
-Each `--help` carries its own flags and the order to climb the rungs in; what follows is only
-what those cannot say.
+`tests/strain.py` times what following it costs, `tests/render.py` renders what it produces, and
+`tests/table.py` publishes the scores. Each `--help` carries its own flags and the order to climb
+the rungs in; what follows is only what those cannot say.
+
+- `MODELS.md` is output, not a document. `python3 tests/table.py <transcript>` replaces the whole
+  file from a sweep's saved transcript, so never edit it, never transcribe a number into it, and
+  put any prose about it in the README instead — its own preamble lives in `table.py`. `--drop`
+  keeps a model out of the page while leaving it in the transcript, which is the evidence.
+- After a check changes, the page needs a new sweep rather than a rebuild. An old transcript
+  rescored under checks its replies never faced reads as a collapse that never happened, and one
+  was published and reverted that way.
 
 - Time a wording as well as scoring it: a ruleset can keep every rule and still be unusable, the
   same file answering in five seconds with thinking off and fifty-six with it on. `score.py` asks
@@ -186,10 +198,10 @@ what those cannot say.
 - A degree fails differently in each mode, so check the one being recommended. Style lines ran
   to about twenty-five words with thinking on and to forty without it, from the same rule.
 - Size does not predict whether a model can hold the rules: a 9B kept 95% where a 33B kept 82%,
-  and the lowest score of all belonged to an 8B. Below about 8B the failure changes kind rather
-  than degree — a 4.7B returned nothing usable for a request it had just answered perfectly, and
-  answered one request type in another's format — so test small models to find an ambiguous
-  wording, never to decide whether one works.
+  and the lowest score of all belonged to an 8B. A small model fails in kind rather than in
+  degree — a 4.7B returned nothing usable for a request it had just answered perfectly, and
+  answered one request type in another's format — so test one to find an ambiguous wording, never
+  to decide whether it works. Below about 4B nothing holds: a 2.3B kept a third of the checks.
 - One seed is not a measurement. Nothing sets a temperature, so a run inherits the model's own:
   three seeds with nothing else changed moved two models by 9 and 16 points out of 88, and one
   five-model comparison scored 82% of checks at its first seed and 97% at the other two. No seed
@@ -218,4 +230,4 @@ what those cannot say.
 - One term per concept, and never a term of art that could be read as literal output.
 - No rationale unless the rule reads as arbitrary without it.
 - American English.
-- Headings are title case, including any a script writes, since those land in the README.
+- Headings are title case, including any a script writes, since those land in `MODELS.md`.

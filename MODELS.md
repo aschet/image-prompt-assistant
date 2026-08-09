@@ -1,0 +1,42 @@
+# Scored Models
+
+Measured on a Ryzen 7 7700 with an RTX 4070 (12 GB) and 64 GB of RAM, at an 8k context and a
+fixed seed. Read the bands, not the ranking: nothing sets a sampling temperature, so a score is
+one draw — three seeds moved two models by 9 and 16 points out of 88. Speed will not carry to
+another machine; Rules Kept will.
+
+Written by `tests/table.py` from a saved sweep, whole file at a time — anything edited here is
+overwritten. [README.md](README.md) says what the scores mean and how to run your own.
+
+| Model | Size | Vision | Rules Kept | Speed | Verdict |
+| --- | --- | --- | --- | --- | --- |
+| `laguna-xs-2.1:latest` | 33.4B | No | 85/85 (100%) | 57 tok/s | Recommended |
+| `ornith:9b` | 9.0B | No | 85/85 (100%) | 73 tok/s | Recommended |
+| `gemma4:12b` | 11.9B | Yes | 84/85 (99%) | 49 tok/s | Recommended |
+| `gemma4:26b` | 25.8B | Yes | 84/85 (99%) | 45 tok/s | Recommended |
+| `qwen3.6:35b` | 36.0B | Yes | 84/85 (99%) | 47 tok/s | Recommended |
+| `glm-4.7-flash:latest` | 29.9B | No | 82/85 (96%) | 42 tok/s | Recommended |
+| `gpt-oss:20b` | 20.9B | No | 82/85 (96%) | 60 tok/s | Recommended |
+| `qwen3.5:9b` | 9.7B | Yes | 79/85 (93%) | 76 tok/s | Recommended |
+| `nemotron3:33b` | 33.0B | Yes | 77/85 (91%) | 40 tok/s | Recommended |
+| `nemotron-3-nano:30b` | 31.6B | No | 76/85 (89%) | 46 tok/s | Usable |
+| `gemma4:e4b` | 8.0B | Yes | 75/85 (88%) | 101 tok/s | Usable |
+| `ministral-3:14b` | 13.9B | Yes | 74/85 (87%) | 49 tok/s | Usable |
+| `north-mini-code-1.0:q4_K_M` | 30.5B | No | 72/85 (85%) | 46 tok/s | Usable |
+| `ornith:35b` | 34.7B | No | 69/85 (81%) | 54 tok/s | Usable |
+
+### Reverse Engineering
+
+Over 12 source images, one per medium. Light is asked only
+of sources with a direction to read, and a palette only of sources that have
+one — ink on cream has neither.
+
+| Model | Medium Read | Framing Stated | Light Stated | Palette Named | Kept |
+| --- | --- | --- | --- | --- | --- |
+| `gemma4:12b` | 12/12 | 12/12 | 4/6 | 9/10 | 37/40 (92%) |
+| `gemma4:26b` | 12/12 | 12/12 | 6/6 | 10/10 | 40/40 (100%) |
+| `qwen3.6:35b` | 11/12 | 12/12 | 5/6 | 9/10 | 37/40 (92%) |
+| `qwen3.5:9b` | 12/12 | 12/12 | 6/6 | 9/10 | 39/40 (98%) |
+| `nemotron3:33b` | 11/12 | 11/12 | 5/6 | 6/10 | 33/40 (82%) |
+| `gemma4:e4b` | 11/12 | 8/12 | 4/6 | 8/10 | 31/40 (78%) |
+| `ministral-3:14b` | 12/12 | 12/12 | 5/6 | 7/10 | 36/40 (90%) |
