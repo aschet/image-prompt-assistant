@@ -66,6 +66,10 @@ reordered or dropped; the two-line block and the features are not.
 - One model failing alone belongs in its score, and a fix nothing else needs is a workaround
   wearing a rule's clothes. Most of them failing the same check is the rule's fault, and usually
   means a prohibition with no criterion or a criterion buried behind one.
+- Before measuring why a feature fails, establish that it is wanted. A drift in scene variations
+  was found across five models, diagnosed, fixed and committed before the one person who uses
+  this said he would never ask for several variants of one scene. The feature came out, and the
+  hour spent repairing it bought nothing. Asking is cheaper than measuring.
 - A rule that adds or reshapes a request type or an output convention changes what
   `tests/score.py` checks, in the same commit, and `--smoke` runs before that commit. It costs
   minutes on the two smallest models and covers every request type, which no other quick check

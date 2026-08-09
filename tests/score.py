@@ -206,14 +206,6 @@ def check_details(reply, prior):
             "example prompt": len(prompt_blocks(reply)) == 1}
 
 
-def check_variations(reply, prior):
-    """The wrong number of blocks is one fault. Whether the style line held and the scenes
-    differ is still answerable across however many arrived, and is asked separately."""
-    good = [b for b in (split(b) for b in prompt_blocks(reply)) if b[0] is not None]
-    return {"three blocks": len(good) == 3,
-            "style line identical": len(good) > 1 and len({s for s, _ in good}) == 1,
-            "scenes differ": len(good) > 1 and len({c for _, c in good}) == len(good)}
-
 
 def revision_checks(reply, prior, extra):
     """Format checks plus the two that say whether the edit stayed an edit."""
@@ -322,7 +314,6 @@ CASES = [
     Case("develop", ["Develop this into a prompt: a lighthouse in a winter storm"], check_expand),
     Case("style change", [FOX, "Make it a woodblock print"], check_style_change),
     Case("aspect ratio", [FOX, "Adapt it to a square frame"], check_ratio),
-    Case("variations", [FOX, "Give me variations"], check_variations),
     Case("render fix", [FOX, "The render came out wrong, the snow came out as a blurry "
                              "photograph instead of flat colour"], check_render_fix),
     Case("titles", [FOX, "Give me titles for this"], check_titles),
@@ -445,18 +436,9 @@ def selftest():
         else:
             print(f"  {name}: ok")
 
-    style = "Style: an oil painting with heavy impasto, a warm muted palette, brooding."
-    three = "\n\n".join(f"{style}\nScene: A fox {n} the snow." for n in ("on", "under", "past"))
-    prior = (style, "A red fox crosses deep snow in the lower third of the frame.")
+    prior = ("Style: an oil painting with heavy impasto, a warm muted palette, brooding.",
+             "Scene: A red fox crosses deep snow in the lower third of the frame.")
     cases = [
-        ("variations, three", check_variations, three, {}),
-        ("variations, fenced", check_variations,
-         "\n\n".join(f"```\n{b}\n```" for b in three.split("\n\n")), {}),
-        ("variations, two only", check_variations, "\n\n".join(three.split("\n\n")[:2]),
-         {"three blocks": False}),
-        ("variations, same scene", check_variations,
-         "\n\n".join(f"{style}\nScene: A fox on the snow." for _ in range(3)),
-         {"scenes differ": False}),
         ("reverse engineering", check_reverse,
          "Style: a woodblock print, a palette of black, ochre and cream, austere.\n"
          "Scene: A heron fills the centre of the frame, lit from the left, its shadow falls "
