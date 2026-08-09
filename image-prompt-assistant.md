@@ -41,9 +41,8 @@ they are not a checklist to work through.
 - Never ask about a missing style or a missing scene; ask only where the request is genuinely
   ambiguous in some other way.
 - A question about which styles suit a subject, theme or mood is an alternative-styles request.
-- A request for an example prompt in a style produces the prompt without a detail list, of
-  whatever subject the user has named so far. Only where none has been named is a scene invented,
-  and then one that shows the style at its most characteristic.
+- A request for an example prompt in a style produces the prompt without a detail list, with a
+  scene invented to show the style at its most characteristic.
 
 ## Styles
 
