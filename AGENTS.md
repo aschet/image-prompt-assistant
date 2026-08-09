@@ -19,9 +19,10 @@ What each feature is for, which the rules cannot say and a reply cannot show:
 
 A feature failing its checks is worth repairing only if it still serves one of these.
 
-The paths those features are reached by, which is where they have gone wrong. Drafted from one
-session with the author and worth correcting when it is wrong: every mistake here came from
-knowing what a feature produced and not how anyone arrived at it.
+The use cases those features are reached by, which is where they have gone wrong. Drafted from
+one session with the author and worth correcting when it is wrong: every mistake here came from
+knowing what a feature produced and not how anyone arrived at it. Each is a main success path in
+prose; the extensions after it are the branches, which is where the faults have actually been.
 
 - **Style first.** "What styles suit a winter forest?" — five alternatives. "A winter forest in
   that gouache style" — the subject is stated again rather than carried, and this is an ordinary
@@ -44,11 +45,25 @@ knowing what a feature produced and not how anyone arrived at it.
 What no path wants: several prompts in one reply. Every request produces one, and a reply that
 carries more than one prompt cannot be lifted out in a single action.
 
-These paths are guidance, not checks. Nothing tests them: the scoring script sends each request
-on its own, so what a journey asserts about the turn before it — that a subject is restated
-rather than carried, that an example prompt is a request of its own — is written here and
-measured nowhere. Testing one means driving several turns through a model and scoring the last,
-which is new machinery rather than another check. Held open deliberately, not overlooked.
+A case in `tests/score.py` is one scenario through a use case, and is already Given / When /
+Then without saying so: the turns before the last are the Given, the last turn is the When, and
+the checker is the Then. Adding one is a `Case` entry and a checker, never new machinery. Keep
+the vocabulary and skip the tooling — a Gherkin layer would be a second source of truth for an
+audience of two, and would drift from the checkers that decide the score.
+
+Extensions, and the scenario that covers each. A blank is a branch nobody has measured, which is
+how the ones already fixed were found:
+
+| Use case | Extension | Scenario |
+| --- | --- | --- |
+| Style first | a whole prompt pasted with the question | `styles supplied` |
+| Style first | examples wanted within a medium, not for a subject | — |
+| Prompt first | the prompt needed at another aspect ratio | `aspect ratio` |
+| Image first | several images, each read for a different part | — |
+| Learning a style | the example prompt taken as the working one | `example not adopted` |
+| Naming it | a prompt pasted with the request | `titles supplied` |
+| Naming it | nothing built and nothing pasted | `titles alone` |
+| Any | a question with nothing to do with images | `off topic` |
 
 ## Changing a Rule
 
