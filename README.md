@@ -66,12 +66,11 @@ was seen there first.
 For a local model, test the one you mean to use. A model's stated size predicts less than it
 looks: most large ones are mixtures of experts running a fraction of their weights at a time, so
 a 5B dense model can hold the rules better than a 30B that activates four experts of sixty-four,
-and here it does. Small does cost something real — below about 4B the knowledge a style name
-stands on thins out, and this file leans on that knowledge for movements, periods and what a
-medium's marks are called. What size predicts reliably is speed: on a 12 GB card a mixture runs
-at 41–62 tok/s whatever its total, while dense weights above 20B spill to the processor and fall
-to 6. Reading an image needs a model with vision and needs it to be good at it — one model here
-keeps 98% of the rules and recovers barely half of what a picture shows.
+and here it does, down to the 4.7B that is the smallest measured. What size predicts reliably is
+speed: on a 12 GB card a mixture runs at 41–62 tok/s whatever its total, while dense weights
+above 20B spill to the processor and fall to 6. Reading an image needs a model with vision and
+needs it to be good at it — one model here keeps 98% of the rules and recovers barely half of
+what a picture shows.
 
 ## Local Models
 
