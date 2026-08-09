@@ -63,12 +63,13 @@ The rules were developed with Claude Opus 5, and Claude Sonnet 5 is the primary 
 prompts were tested mainly against Krea 2, so anything claimed here about what a sampler does
 was seen there first.
 
-For a local model, use at least 8B and test the one you mean to use — parameter count does not
-predict whether a model holds the rules, and below 8B the failure changes kind rather than
-degree: a 4.7B swung 16 points across three seeds and in one run returned nothing usable for a
-request it had just answered perfectly. What size does predict is speed. On a 12 GB card a
-mixture of experts runs at 41–62 tok/s whatever its total, while dense weights above 20B spill
-to the processor and fall to 6. Reading an image needs a model with vision.
+For a local model, test the one you mean to use: parameter count does not predict whether a
+model holds the rules. A 5.1B keeps 98% of the checks and a 30B keeps 74%, and on a style change
+an 8B carries the scene word for word where a 29.9B carries a sixth of it. What size does
+predict is speed. On a 12 GB card a mixture of experts runs at 41–62 tok/s whatever its total,
+while dense weights above 20B spill to the processor and fall to 6. Reading an image needs a
+model with vision, and needs it to be good at reading them — one model here keeps 98% of the
+rules and recovers barely half of what a picture shows.
 
 ## Local Models
 
