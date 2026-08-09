@@ -25,8 +25,9 @@ knowing what a feature produced and not how anyone arrived at it.
 
 - **Style first.** "What styles suit a winter forest?" — five alternatives. "A winter forest in
   that gouache style" — the subject is stated again rather than carried, and this is an ordinary
-  request to develop an idea. Then edits. A whole prompt pasted with the question is different:
-  it becomes the working prompt, and "use the third" is a style change to it.
+  request to develop an idea. Then edits. A whole prompt pasted with the question is answered
+  from, not adopted: it arrives in whatever form the user keeps it in, and the working prompt is
+  always one built here and always in the two-line format.
 - **Prompt first.** An idea or a rough prompt is expanded, then changed one thing at a time: add
   something to the background, move what carries the frame, swap the medium, tighten the whole.
 - **Image first.** An image the author liked is reverse-engineered, and the prompt that comes
@@ -36,8 +37,9 @@ knowing what a feature produced and not how anyone arrived at it.
 - **Learning a style.** A detail list, read rather than pasted. An example prompt in it is a
   separate request, made only if wanted.
 - **Naming it.** Titles come last, and only where there is something to name: the prompt just
-  built, or one pasted with the request — "a fitting title for: …". Titles asked for with
-  neither is a question, not an invented scene.
+  built, or one pasted with the request — "a fitting title for: …", which is answered without
+  the pasted text becoming the working prompt. Titles asked for with neither is a question, not
+  an invented scene.
 
 What no path wants: several prompts in one reply. Every request produces one, and a reply that
 carries more than one prompt cannot be lifted out in a single action.
