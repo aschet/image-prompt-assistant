@@ -53,12 +53,13 @@ The rules were developed with Claude Opus 5, and Claude Sonnet 5 is the primary 
 
 ## Local Models
 
-Test the model you mean to use. 4B is the requirement and 8B the recommendation, and the gap
-between them is where the difference shows: below 4B a model falls apart rather than degrading —
-a 2.3B keeps a third of the checks, a 0.87B answered a request for a style's details with a
-prompt — while from 4B to 8B the two-line format holds and whole features drop out instead. One
-4.7B kept 86% of the checks with every alternative-styles check among the failures, and a 5.1B
-beside it kept 98%. From 8B up the features hold as well as the format.
+Test the model you mean to use. 4B is the requirement and 8B the recommendation, and what
+separates them is not the format but knowing which request it is answering. A 4.7B keeps 85% of
+the checks and a 5.1B 77%, both writing the two labelled lines well — and nearly every loss is a
+request that is not a prompt request being answered with a prompt anyway: a style name, a request
+for titles with nothing yet to name, a style change to an example it should have asked about. One
+of them did that on five requests out of five. Below 4B even the format goes: a 2.3B keeps a
+third of the checks, and a 0.87B answered a request for a style's details with a prompt.
 
 Which is to say stated size predicts less than it looks. Most large models are mixtures of experts
 running a fraction of their weights at a time, so a 5B dense model can hold the rules better than

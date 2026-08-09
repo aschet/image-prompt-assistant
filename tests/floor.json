@@ -1,0 +1,321 @@
+{
+ "qwen3.5:4b": {
+  "caps": [
+   "vision",
+   "tools",
+   "thinking"
+  ],
+  "size": "4.7B",
+  "rate": 116.81326139280463,
+  "said": [
+   {
+    "case": "expand",
+    "reply": "Style: an oil painting with loose brushwork and deep crimson against white  \nScene: A solitary red fox crosses across the center of a vast expanse of undisturbed falling snow under the soft dying light, its bushy tail raised high behind it as it moves from left to right, leaving faint tracks that vanish into the bright blue shadows cast by two pale setting suns over distant jagged peaks.",
+    "prior": null
+   },
+   {
+    "case": "develop",
+    "reply": "Style: an oil painting with heavy impasto texture and a cold blue-grey palette, capturing the biting stillness of a night storm.\nScene: A solitary stone lighthouse standing defiant against a violent tempest; towering white waves crash over its base while thick black clouds churn above, illuminated only by the steady beam cutting through the dark rain that slicks the jagged cliffs surrounding it",
+    "prior": null
+   },
+   {
+    "case": "style change",
+    "reply": "Style: a Japanese ukiyo-e woodblock print, bold black outlines and flat color planes with limited tonal shading in earthy reds against crisp white snow and deep blue dusk sky, high-contrast elegance. \nScene: A vibrant crimson fox stepping across vast blank powder toward the right edge of the frame under fading grey light, its head turned slightly left to look forward as breath curls softly above the ground near a single dark shadow cast by distant pine trees at the border of view.",
+    "prior": [
+     "Style: an oil painting with heavy impasto brushwork and deep shadows against the twilight sky, earthy reds glowing in contrast to cold white snow. ",
+     "Scene: A single bright red fur fox moving left across wide, undisturbed powder under a fading grey-blue afternoon light, its eyes catching the last warmth before night falls into empty space ahead of it with breath visible as vapor curling above the ground."
+    ]
+   },
+   {
+    "case": "aspect ratio",
+    "reply": "Style: an oil painting with heavy impasto brushwork and deep shadows against the twilight sky, earthy reds glowing in contrast to cold white snow. \nScene: A single bright red fur fox centered vertically moving left across wide undisturbed powder under fading grey-blue afternoon light where its eyes catch last warmth before night falls into empty space ahead of it with breath visible as vapor curling above the ground and framing cuts evenly along all sides without horizon tilt.",
+    "prior": [
+     "Style: an oil painting with heavy impasto brushwork and deep shadows against the twilight sky, earthy reds glowing in contrast to cold white snow. ",
+     "Scene: A single bright red fur fox moving left across wide, undisturbed powder under a fading grey-blue afternoon light, its eyes catching the last warmth before night falls into empty space ahead of it with breath visible as vapor curling above the ground."
+    ]
+   },
+   {
+    "case": "render fix",
+    "reply": "Style: an oil painting with heavy impasto brushwork and deep shadows against the twilight sky, earthy reds glowing in contrast to cold white snow. \nScene: A single bright red fur fox moving left across wide undisturbed powder under a fading grey-blue afternoon light, its eyes catching the last warmth before night falls into empty space ahead of it with breath visible as vapor curling above the ground.",
+    "prior": [
+     "Style: an oil painting with heavy impasto brushwork and deep shadows against the twilight sky, earthy reds glowing in contrast to cold white snow. ",
+     "Scene: A single bright red fur fox moving left across wide, undisturbed powder under a fading grey-blue afternoon light, its eyes catching the last warmth before night falls into empty space ahead of it with breath visible as vapor curling above the ground."
+    ]
+   },
+   {
+    "case": "titles",
+    "reply": "- The Last Red Spark  \n- Twilight Crossing  \n- Powder and Fur at Dusk  \n- One Fox Before Night  \n- Warmth in Cold White Light",
+    "prior": [
+     "Style: an oil painting with heavy impasto brushwork and deep shadows against the twilight sky, earthy reds glowing in contrast to cold white snow. ",
+     "Scene: A single bright red fur fox moving left across wide, undisturbed powder under a fading grey-blue afternoon light, its eyes catching the last warmth before night falls into empty space ahead of it with breath visible as vapor curling above the ground."
+    ]
+   },
+   {
+    "case": "alternatives",
+    "reply": "- **Impressionist watercolor**\n  Style: a watercolor illustration, wet-on-wet washes, luminous.\n\n- **Baroque oil painting on canvas**\n  Style: an oil painting with dramatic chiaroscuro and glossy highlights, rich deep golds contrasting silver frost.\n\n- **Cyberpunk cel-shaded digital art**\n  Style: a flat vector illustration, bold black outlines, neon crimson against icy white gradients.\n\n- **Photographic double exposure portrait**\n  Style: photography with high contrast monochrome palette overlaid translucent red fox silhouette.\n\n- **Minimalist ink wash sketch on rice paper**\n  Style: traditional Japanese sumi-e ink drawing, stark black lines and splashes of pale ochre against white void.",
+    "prior": [
+     "Style: an oil painting with heavy impasto brushwork and deep shadows against the twilight sky, earthy reds glowing in contrast to cold white snow. ",
+     "Scene: A single bright red fur fox moving left across wide, undisturbed powder under a fading grey-blue afternoon light, its eyes catching the last warmth before night falls into empty space ahead of it with breath visible as vapor curling above the ground."
+    ]
+   },
+   {
+    "case": "details",
+    "reply": "**Description:** A late 19th and early 20th-century movement characterized by organic lines derived from natural forms (plants, insects), asymmetrical compositions that mimic growth patterns, elongated S-shapes known as \"whiplash\", decorative motifs like stylized flowers and faunas, intricate metalwork or stained glass often with a mosaic-like quality where each piece fits into a complex interlocking design, bold use of color to create contrast against white backgrounds.\n\n**Origin:** It emerged around 1890 in the West (particularly France and Belgium) as an alternative movement within the Arts and Crafts Movement but was distinct from both Art Nouveau and Art Deco styles due to its influence on graphic art and architecture rather than industrial design, focusing heavily on illustration; it peaked between roughly 1890\u20131920.\n\n**Suits:** Illustrations (postcards, book covers), jewelry designs especially with interlocking patterns or motifs resembling natural forms such as vines or flowers, furniture that is often highly decorated and asymmetrical, textile prints featuring organic patterns like leaves in various shapes arranged across fabrics; it does not suit straightforward geometric abstraction well because of its preference for fluidity.\n\n**Terms:** Asymmetry, whiplash lines, botanical inspiration, interlocking geometry used to create seamless decorative panels or borders where individual elements form part of a larger cohesive pattern without gaps.\n\n**Artists:** Alphonse Mucha (illustrations), Gustav Klimt (facades and wall paintings influenced by it although he worked within late modernism too), Henri de Toulouse-Lautrec (though more famous for his nightlife scenes, some works were heavily inspired).",
+    "prior": null
+   },
+   {
+    "case": "off topic",
+    "reply": "The capital of France is Paris.",
+    "prior": null
+   },
+   {
+    "case": "titles supplied",
+    "reply": "* The Silence of Red and White  \n* Cold Geometry in Profile  \n* A Haunting Overcast  \n* Stillness Unbroken by Footprint  \n* Gouche Light, Fox Shadow",
+    "prior": null
+   },
+   {
+    "case": "styles supplied",
+    "reply": "Style: an oil painting with heavy impasto, warm muted palette, brooding.\nScene: A single pale grey circle sits centered against the white expanse of an endless snowy plain; the horizon stretches straight to a band of thin dark trunks that form no silhouette but merely cut through it like a fence row at eye-level depth behind the fox in profile; its coat reads as burnt orange and crimson red, not black or yellow; overcast sky fills only a narrow strip above the snow's edge where flat pale light washes everything without casting sharp shadows.\n\nThe prompt provided specifies gouache, which is often difficult for AI image generators to render convincingly (especially with \"heavy impasto\"). To provide you with five distinct alternatives that capture the *feeling* of your scene\u2014minimalist, cold, textured\u2014we have pivoted slightly towards mediums where this specific composition shines.\n\n- **Watercolor illustration**\n  Style: a watercolor painting on rice paper, transparent washes and dry-brush texture, luminous cool tones. A single pale grey circle sits centered against the white expanse of an endless snowy plain; the horizon stretches straight to a band of thin dark trunks that form no silhouette but merely cut through it like a fence row at eye-level depth behind the fox in profile; its coat reads as burnt orange and crimson red, not black or yellow; overcast sky fills only a narrow strip above the snow's edge where flat pale light washes everything without casting sharp shadows.\n\n- **Oil painting with impasto**\n  Style: an oil painting on wood panel, thick vertical strokes, chiaroscuro contrast between burnt orange and cool grey. A single pale grey circle sits centered against the white expanse of an endless snowy plain; the horizon stretches straight to a band of thin dark trunks that form no silhouette but merely cut through it like a fence row at eye-level depth behind the fox in profile; its coat reads as burnt orange and crimson red, not black or yellow; overcast sky fills only a narrow strip above the snow's edge where flat pale light washes everything without casting sharp shadows.\n\n- **Polaroid photography**\n  Style: instant film photograph on grainy white paper with soft pink vignette, high-key exposure. A single pale grey circle sits centered against the white expanse of an endless snowy plain; the horizon stretches straight to a band of thin dark trunks that form no silhouette but merely cut through it like a fence row at eye-level depth behind the fox in profile; its coat reads as burnt orange and crimson red, not black or yellow; overcast sky fills only a narrow strip above the snow's edge where flat pale light washes everything without casting sharp shadows.\n\n- **Acrylic on canvas**\n  Style: an acrylic painting with visible palette knife marks, matte finish, saturated yet desaturated edges. A single pale grey circle sits centered against the white expanse of an endless snowy plain; the horizon stretches straight to a band of thin dark trunks that form no silhouette but merely cut through it like a fence row at eye-level depth behind the fox in profile; its coat reads as burnt orange and crimson red, not black or yellow; overcast sky fills only a narrow strip above the snow's edge where flat pale light washes everything without casting sharp shadows.\n\n- **Charcoal drawing with white highlights**\n  Style: a charcoal drawing on textured grey paper blended with liquid white gel pens, monochrome focus. A single pale grey circle sits centered against the white expanse of an endless snowy plain; the horizon stretches straight to a band of thin dark trunks that form no silhouette but merely cut through it like a fence row at eye-level depth behind the fox in profile; its coat reads as burnt orange and crimson red, not black or yellow; overcast sky fills only a narrow strip above the snow's edge where flat pale light washes everything without casting sharp shadows.",
+    "prior": null
+   },
+   {
+    "case": "style name alone",
+    "reply": "Style: an art nouveau illustration with flowing organic lines and a palette of golds and deep forest greens\nScene: a slender woman in her early twenties wearing a bodice made from twisted vines that cover the upper torso while leaving bare skin below, her hair is arranged into intricate braids that cascade around her shoulders, she sits alone on an ornate throne carved with floral motifs against a backdrop of swirling leaves and soft shadows.",
+    "prior": null
+   },
+   {
+    "case": "titles alone",
+    "reply": "- The Unseen Edge  \n- Where Light Holds Still  \n- Silent Weight in Shadow  \n- A Frame Too Quiet for Words  \n- Between What Is and Could Be  \n\n(For a prompt that reads: Style: an oil painting with heavy impasto, a warm muted palette, brooding. Scene: the corner of a wooden chair cut by shadowed cloth at the bottom left, its shape half-hidden against rough brickwork; above it hangs a single iron hook holding no chain.)",
+    "prior": null
+   },
+   {
+    "case": "example not adopted",
+    "reply": "Style: a Japanese ukiyo-e woodblock print, bold ink lines and flat color blocks, high-contrast monochrome with touches of vermilion.\nScene: A porcelain lady in deep crimson robes standing tall in front of pale cream walls while red flowers bloom near her feet on dark blue ground; sharp shadows fall across the white floor behind her left side where faint gray paper grain shows beneath black lines that cut through empty space to one edge and three rows of bold pink geometric shapes sit above her head toward distant charcoal horizon below.",
+    "prior": [
+     "Style: an oil painting with fluid lines and gold leaf accents on deep greens, the brushwork loose and expressive.",
+     "Scene: A porcelain lady in a high-backed chair reading letters at night while rain streaks glass; soft light glows from her eyes onto white pages against a black background as dark blue curtains frame empty walls to one side of three rows of red roses that rise tall behind her head near the left wall edge toward distant gray stone floor below where faint shadows fall across them."
+    ]
+   },
+   {
+    "case": "reverse photograph",
+    "reply": "Style: double-exposure film photography with high grain and muted desaturated tones  \nScene: a modern bus stop on a rainy urban street in the lower third of frame; cracks spiderweb across its glass panes reflecting overcast sky, puddles mirror bare tree trunks and wet pavement tiles leading to curb where man in long black coat stands beside wooden bench gazing past camera lens into grey background.",
+    "prior": null
+   },
+   {
+    "case": "reverse portrait",
+    "reply": "Style: an oil painting with soft chiaroscuro lighting and a warm sepia-toned palette.  \nScene: three-quarter portrait of a bearded man in dark clothing, turned slightly to face forward; light from the upper right highlights his forehead and cheek while casting deep shadow across his chest and left shoulder against a smooth brown backdrop.",
+    "prior": null
+   },
+   {
+    "case": "reverse drawing",
+    "reply": "Style: ink wash painting with wet-on-wet texture and splatter marks, pale paper texture, single red seal in corner  \nScene: an oval pear rendered in bold sweeping black outlines and translucent grey-brown body washes, its shadow cast to the left as a soft indistinct smudge on aged textured paper, white negative space surrounding the fruit emphasizing the vertical curve of the form",
+    "prior": null
+   },
+   {
+    "case": "reverse engraving",
+    "reply": "Style: an etching with fine cross-hatching and stippling on textured paper\nScene: a stone marketplace set before the rose window of a large church, cobblestones packed with rows of striped awnings holding stalls that display hanging poultry and bread; figures in period dress move through foreground tables piled with fish and fruit where one woman holds open scales beside two men negotiating near a wooden barrel; dogs wander between carts and barrels scattered across uneven ground behind them.",
+    "prior": null
+   },
+   {
+    "case": "reverse geometric",
+    "reply": "Style: oil painting with flat color fields and sharp edges, geometric abstraction  \nScene: sixteen squares of white arranged in four rows by four columns; the top-left square holds three overlapping solid orange circles stacked vertically near its center edge; below it sit two large black circles filling their frames nearly to edge-to-edge contact while resting on a plain background; alternating rows introduce vertical stripes of bright orange and pale gray that frame each circle tightly against minimal white negative space between them",
+    "prior": null
+   },
+   {
+    "case": "reverse abstract",
+    "reply": "Style: thick impasto oil painting with high gloss highlights and sharp edges on red, white and black.\nScene: two large diagonal strokes crossing the frame\u2014one deep red in upper left and one jet-black spanning center to lower right\u2014framed by splatters of white that bleed into their sides, while a folded patch of creamy off-white rests alone near bottom edge against plain wall background.",
+    "prior": null
+   },
+   {
+    "case": "reverse collage",
+    "reply": "Style: an oil painting with rough impasto and torn paper texture, heavy contrast between stark black charcoal strokes and soft pastel washes, earthy ochre background, deep shadows carved from layered paint application.\n\nScene: A portrait of a man rendered in thick black charcoal brushstrokes dominating the upper two-thirds against aged sepia-toned text printed on newspaper page with faint Cyrillic characters beneath his chin; below him lies an abstract composition where rough strokes of matte pale blue wash over textured ochre ground, interrupted by three large interlocked ink rings drawn in fine pencil lines across a field of horizontal painted bands that shift from sandy yellow to sky-blue.",
+    "prior": null
+   },
+   {
+    "case": "reverse poster",
+    "reply": "Style: halftone print with textured grain and bold flat color blocks, warm saturated palette\nScene: two large circles split vertically down the center occupy most of the frame; their left side is deep red half filled at bottom by dense concentric black curved lines radiating outward from a small dark blue circle placed between them on shared vertical axis while right side remains solid ochre with subtle mottled texture above waterline below which horizontal bands suggest stylized ocean surface rendered in teal and navy tones; two smaller orange-red circular forms float among lower waves one composed of layered arcs echoing larger shape to its left.",
+    "prior": null
+   },
+   {
+    "case": "reverse elevation",
+    "reply": "Style: ink and wash drawing with soft grey-blue tones and delicate hatching, architectural stillness  \nScene: a single-story modern house seen from the front in vertical composition; white-framed windows fill two-thirds of the fa\u00e7ade, arranged symmetrically around a central door set between them at eye level. The building rests on low concrete steps against bare ground framed by muted green foliage to left and right. Inside, faint outlines suggest furniture: desks with monitors through the glazing glow softly under diffuse light that falls from above and side without sharp shadows; curtains drawn back frame each pane like quiet borders.",
+    "prior": null
+   },
+   {
+    "case": "reverse isometric",
+    "reply": "Style: 3D toy block art with soft rounded edges and hand-painted texture marks in brown ochre cream and burnt orange tones  \nScene: Inside an arched stone tower lobby at night where three lit wall sconces cast warm pools on the red runner carpeted stairs leading up to a second-floor balcony railing; beyond them hangs a full white moon under dark blue sky framed by bats silhouetted against it while cobwebs drape from exposed beams above ; down below floor level stands an exorcist figure in grey trench coat and bowler hat holding crucifix facing left toward the vampire lord who occupies top step with glowing orange eyes, black bat wings spread wide as if emerging; beside him lies overturned silver cask spilling gold coins onto scattered autumn leaves covering stone tiles near broken ceramic basin on right side ; ambient candlelight flickers softly from tall white tapers mounted along curved staircase and lower walls against deep indigo backdrop filled with floating ember particles  \n\n(Example prompt to demonstrate style: \"3D toy block castle interior at night, rounded edges hand-painted texture marks, warm ochre and cream tones; arched stone tower lobby with lit sconces casting light on red runner stairs leading to balcony under moonlit sky)",
+    "prior": null
+   },
+   {
+    "case": "reverse watercolor",
+    "reply": "Style: an ornithological watercolor illustration with fine line work and transparent color washes against textured cream paper  \nScene: A kingfisher in emerald green plumage with orange flanks dives vertically into dark blue lake water, its wings spread wide catching a silvery fish mid-air at the surface; ripples radiate outward from where two small droplets cling to its upper mandible just above the bill's tip",
+    "prior": null
+   },
+   {
+    "case": "reverse gouache",
+    "reply": "Style: a painted illustration with visible brushstrokes and soft highlights  \nScene: an overhead view of billiard table covered in deep navy blue felt as if it were the expanse of outer space filled with white stars scattered across its surface. At one end sits a cluster of nine spheres representing planets, rendered in varied textures including striped gas giants, green earths, and hazy atmospheres; at center lies a glowing cue ball radiating soft golden rays outward like sunrise. A man leans over from the right side holding two sticks to strike the central orb \u2014 his face round with rosy cheeks under warm light cast by bulb hanging above centered in frame against ochre wall background beneath which stretches muted gray-green floor visible along edges of table's wooden border marked black pockets and small white dots resembling distant constellations. The composition uses gentle perspective lines drawing eye toward focal point while maintaining cozy domestic scale despite celestial theme unfolding on playing field below where gravity seems suspended between game board galaxy meeting indoors reality.",
+    "prior": null
+   }
+  ]
+ },
+ "gemma4:e2b": {
+  "caps": [
+   "vision",
+   "audio",
+   "tools",
+   "thinking"
+  ],
+  "size": "5.1B",
+  "rate": 165.79198018253328,
+  "said": [
+   {
+    "case": "expand",
+    "reply": "Style: cinematic still, volumetric lighting, cool muted tones, atmospheric.\nScene: a red fox crossing open snow at dusk, the snow is deep blue and gray, the fox is backlit by fading orange and violet light, long shadows stretch across the snowfield.",
+    "prior": null
+   },
+   {
+    "case": "develop",
+    "reply": "Style: oil painting with thick impasto texture, cold muted palette, dramatic and brooding.\nScene: A tall lighthouse battered by intense wind and driving snow in a severe winter storm, dark slate grey and stark white light slicing through heavy grey clouds.",
+    "prior": null
+   },
+   {
+    "case": "style change",
+    "reply": "Style: woodblock print, rich texture, earthy tones, high contrast.\nScene: a red fox crossing open snow at dusk, the scene rendered in deep browns, cool blues, and fiery oranges of twilight, the texture of the woodgrain visible across the landscape.",
+    "prior": [
+     "Style: cinematic still, volumetric lighting, cool blue and deep orange palette, atmospheric.",
+     "Scene: a red fox crossing open snow at dusk, the snow reflects the fading light with cool blues and hints of orange on its coat, the air is still and cold around the fox."
+    ]
+   },
+   {
+    "case": "aspect ratio",
+    "reply": "Style: cinematic still, volumetric lighting, cool blue and deep orange palette, atmospheric.\nScene: a red fox crossing open snow at dusk, the snow reflects the fading light with hints of pale blue and soft orange shadows cast by the low sun.",
+    "prior": [
+     "Style: cinematic still, volumetric lighting, cool blue and deep orange palette, atmospheric.",
+     "Scene: a red fox crossing open snow at dusk, the snow reflects the fading light with hints of pale blue and soft orange shadows cast by the low sun."
+    ]
+   },
+   {
+    "case": "render fix",
+    "reply": "Style: cinematic still, volumetric lighting, cool blue and deep orange palette, atmospheric.\nScene: a red fox crossing open snow at dusk, the snow has flat, defined color with crisp edges reflecting the fading light with hints of pale blue and soft orange shadows cast by the low sun.",
+    "prior": [
+     "Style: cinematic still, volumetric lighting, cool blue and deep orange palette, atmospheric.",
+     "Scene: a red fox crossing open snow at dusk, the snow reflects the fading light with hints of pale blue and soft orange shadows cast by the low sun."
+    ]
+   },
+   {
+    "case": "titles",
+    "reply": "- Fading Light on Snow\n- Dusk Crossing\n- Crimson in the White\n- Winter's Edge\n- Twilight Transit",
+    "prior": [
+     "Style: cinematic still, volumetric lighting, cool blue and deep orange palette, atmospheric.",
+     "Scene: a red fox crossing open snow at dusk, the snow reflects the fading light with hints of pale blue and soft orange shadows cast by the low sun."
+    ]
+   },
+   {
+    "case": "alternatives",
+    "reply": "- **Impressionist painting**\n  Style: an impressionist painting, loose brushstrokes, shimmering light, diffused.\n- **Expressionist illustration**\n  Style: an expressionist illustration, harsh lines, vivid clashing colors, emotional tension.\n- **Tonalism**\n  Style: a tonalism landscape, subtle gradations, muted cool blues and grays, tranquil.\n- **Art Nouveau poster**\n  Style: an art nouveau poster, flowing lines, elegant curves, deep indigo and warm ochre accents.\n- **Romantic landscape**\n  Style: a romantic landscape painting, dramatic lighting, rich earth tones, melancholic.",
+    "prior": [
+     "Style: cinematic still, volumetric lighting, cool blue and deep orange palette, atmospheric.",
+     "Scene: a red fox crossing open snow at dusk, the snow reflects the fading light with hints of pale blue and soft orange shadows cast by the low sun."
+    ]
+   },
+   {
+    "case": "details",
+    "reply": "Style: art nouveau, flowing organic lines, rich jewel tones, elegant and sinuous.\nScene: A depiction of flowing organic forms inspired by natural plant life and flowing water across a decorative surface with vibrant greens, golds, deep blues, and earthy browns.",
+    "prior": null
+   },
+   {
+    "case": "off topic",
+    "reply": "Style: cinematic still, dramatic lighting, deep shadows, high contrast.\nScene: A panoramic view of a grand Parisian square bathed in the pale morning light, with classical architecture dominating the foreground and an expansive, hazy sky above.",
+    "prior": null
+   },
+   {
+    "case": "titles supplied",
+    "reply": "Style: gouache, flat wash, cold and stark.\nScene: a red fox in profile on unbroken snow with thin dark trunks behind it under flat overcast light.",
+    "prior": null
+   },
+   {
+    "case": "styles supplied",
+    "reply": "Style: gouache, wet-on-wet application, muted cool palette, stark.\nScene: a red fox in profile on unbroken snow with thin dark trunks behind it under flat overcast light.",
+    "prior": null
+   },
+   {
+    "case": "style name alone",
+    "reply": "Style: art nouveau, flowing organic lines, elegant curves.\nScene: A composition of stylized botanical forms and sinuous architectural elements filled with muted gold, sage green, and cream tones.",
+    "prior": null
+   },
+   {
+    "case": "titles alone",
+    "reply": "Style: plain\nScene: A single figure standing in an empty, vast landscape under an overcast sky.",
+    "prior": null
+   },
+   {
+    "case": "example not adopted",
+    "reply": "Style: woodblock print, fine lines, flat color areas, rich earthy tones, decorative.\nScene: A composition of stylized vines, whiplash curves intertwining with delicate floral motifs, deep emerald green, shimmering gold, and soft ivory tones, rendered in sharp, defined blocks of color.",
+    "prior": [
+     "Style: art nouveau, flowing organic lines, iridescent palette, elegant and sinuous.",
+     "Scene: A composition of stylized vines, whiplash curves intertwining with delicate floral motifs, deep emerald green, shimmering gold, and soft ivory tones."
+    ]
+   },
+   {
+    "case": "reverse photograph",
+    "reply": "Style: cinematic still, moody, high contrast, cool muted palette.\nScene: A man wearing a long dark coat stands under a public shelter on a wet street, reflected in the glass, with wet pavement and blurred background foliage visible.",
+    "prior": null
+   },
+   {
+    "case": "reverse portrait",
+    "reply": "Style: 19th century oil painting with rich texture and deep shadows, dramatic chiaroscuro lighting, somber mood.\nScene: A portrait of a man with a full beard and intense eyes looking directly at the viewer, wearing dark clothing against a warm brown background.",
+    "prior": null
+   },
+   {
+    "case": "reverse drawing",
+    "reply": "Style: ink drawing, expressive line work, high contrast.\nScene: a single pear shape with a stem resting on an amorphous ink blot background, deep black and grey tones.",
+    "prior": null
+   },
+   {
+    "case": "reverse engraving",
+    "reply": "Style: pen and ink illustration, cross-hatching technique, high contrast, detailed.\nScene: A bustling marketplace scene featuring merchants operating stalls with canvas awnings, numerous figures engaged in commerce with goods displayed on tables and in wooden barrels, the architecture of stone buildings visible in the background under bright daylight.",
+    "prior": null
+   },
+   {
+    "case": "reverse geometric",
+    "reply": "Style: geometric abstraction, flat color fields, stark contrast.\nScene: A grid composed of equally sized squares and rectangles in bright orange, solid black, and muted light gray.",
+    "prior": null
+   },
+   {
+    "case": "reverse abstract",
+    "reply": "Style: impasto oil painting with thick, visible brushstrokes, rich deep red and stark black paint with accents of creamy white.\nScene: Abstract composition of thick, heavily textured, layered strokes of vibrant red, thick black, and thick off-white paint across the frame, showing heavy texture and visible physical application of the medium.",
+    "prior": null
+   },
+   {
+    "case": "reverse collage",
+    "reply": "Style: oil painting with thick impasto strokes, deep earthy tones and muted blues, somber and contemplative.\nScene: A portrait of a man's face filling the frame, his features rendered with heavy texture against a background of rough, textured beige and deep teal strokes.",
+    "prior": null
+   },
+   {
+    "case": "reverse poster",
+    "reply": "Style: mid-century graphic design, flat color blocks, strong geometric composition, warm muted palette.\nScene: A large composition filled with overlapping circles and arcs in deep red, burnt orange, ochre yellow, and dark navy blue, contained within horizontal bands of teal and beige, creating a stylized representation of water and abstract shapes.",
+    "prior": null
+   },
+   {
+    "case": "reverse elevation",
+    "reply": "Style: architectural illustration, line art, precise, clean.\nScene: A detailed depiction of a wooden framed structure with large panes of glass and a central door, set within a frame of surrounding foliage.",
+    "prior": null
+   },
+   {
+    "case": "reverse isometric",
+    "reply": "Style: photorealistic rendering, dramatic chiaroscuro lighting, deep shadows, warm candlelight glow.\nScene: an old stone gateway with a wide arched doorway leading into a dimly lit interior, a long stone staircase ascends towards the entrance, flickering torchlight illuminates scattered fallen leaves on the stone floor, a cloaked figure stands near the doorway holding a lantern, a full moon hangs in the dark night sky above.",
+    "prior": null
+   },
+   {
+    "case": "reverse watercolor",
+    "reply": "Style: oil painting with rich texture and deep shadows, a warm earthy palette, dramatic chiaroscuro.\nScene: A large bird with vibrant turquoise and emerald green feathers is partially submerged in dark blue water, holding a fish in its beak; the light catches the slickness of the feathers and the ripples on the water.",
+    "prior": null
+   },
+   {
+    "case": "reverse gouache",
+    "reply": "Style: oil painting with thick impasto strokes, warm muted palette, dramatic chiaroscuro lighting.\nScene: A man in a white shirt is painting on a dark wooden table, focused on a hanging light fixture, surrounded by celestial bodies and floating orbs of color.",
+    "prior": null
+   }
+  ]
+ }
+}
