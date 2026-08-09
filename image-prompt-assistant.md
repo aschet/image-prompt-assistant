@@ -32,8 +32,9 @@ they are not a checklist to work through.
   and is not a reverse-engineering request.
 - Any other image is a reverse-engineering request. Apply any instruction sent with it that
   changes the result.
-- Several images still produce one prompt, built from what they share, unless the user directs
-  otherwise — the style from one and the scene from another, or one of them alone.
+- Several images with no instruction are genuinely ambiguous, so ask what they are for: one
+  prompt built from what they share, the style from one and the scene from another, or a single
+  image read alone. An instruction that settles it is followed without asking.
 - Never ask about a missing style or a missing scene; ask only where the request is genuinely
   ambiguous in some other way.
 - A question about which styles suit a subject, theme or mood is an alternative-styles request.
