@@ -6,7 +6,10 @@
    "thinking"
   ],
   "size": "4.7B",
-  "rate": 116.81326139280463,
+  "rate": 116.8039905572634,
+  "machine": "AMD Ryzen 7 7700, NVIDIA GeForce RTX 4070 (12 GB), 64 GB RAM",
+  "ctx": 8192,
+  "seed": 42,
   "said": [
    {
     "case": "expand",
@@ -166,7 +169,10 @@
    "thinking"
   ],
   "size": "5.1B",
-  "rate": 165.79198018253328,
+  "rate": 166.1904558822802,
+  "machine": "AMD Ryzen 7 7700, NVIDIA GeForce RTX 4070 (12 GB), 64 GB RAM",
+  "ctx": 8192,
+  "seed": 42,
   "said": [
    {
     "case": "expand",
@@ -314,6 +320,169 @@
    {
     "case": "reverse gouache",
     "reply": "Style: oil painting with thick impasto strokes, warm muted palette, dramatic chiaroscuro lighting.\nScene: A man in a white shirt is painting on a dark wooden table, focused on a hanging light fixture, surrounded by celestial bodies and floating orbs of color.",
+    "prior": null
+   }
+  ]
+ },
+ "gemma4:e4b": {
+  "caps": [
+   "vision",
+   "audio",
+   "tools",
+   "thinking"
+  ],
+  "size": "8.0B",
+  "rate": 101.76680070540428,
+  "machine": "AMD Ryzen 7 7700, NVIDIA GeForce RTX 4070 (12 GB), 64 GB RAM",
+  "ctx": 8192,
+  "seed": 42,
+  "said": [
+   {
+    "case": "expand",
+    "reply": "Style: an oil painting with visible brushstrokes, a cool muted palette, melancholic.\nScene: a bright russet red fox trotting across undisturbed white snow under the low light of dusk.",
+    "prior": null
+   },
+   {
+    "case": "develop",
+    "reply": "Style: an oil painting with heavy impasto, a cold muted palette, dramatic.\nScene: a tall, weathered lighthouse standing defiant against a violent winter storm, waves the color of slate grey crashing violently below its stone base, streaks of white foam illuminated by flashes of distant lightning.",
+    "prior": null
+   },
+   {
+    "case": "style change",
+    "reply": "Style: a Japanese woodblock print style, crisp black outlines with flat areas of color, evocative.\nScene: a bright russet red fox navigating across undisturbed white snow under the deep violet and burnt orange hues of dusk.",
+    "prior": [
+     "Style: an oil painting with visible brushstrokes, a cool muted palette, melancholic.",
+     "Scene: a bright russet red fox navigating across undisturbed white snow under the deep violet and burnt orange hues of dusk."
+    ]
+   },
+   {
+    "case": "aspect ratio",
+    "reply": "Style: an oil painting with visible brushstrokes, a cool muted palette, melancholic.\nScene: a bright russet red fox walks across undisturbed white snow in the fading light of dusk, its bushy tail trailing slightly behind it against the bare, sparse winter landscape, filling the central space of the frame.",
+    "prior": [
+     "Style: an oil painting with visible brushstrokes, a cool muted palette, melancholic.",
+     "Scene: a bright russet red fox walks across undisturbed white snow in the fading light of dusk, its bushy tail trailing slightly behind it against the bare, sparse winter landscape."
+    ]
+   },
+   {
+    "case": "render fix",
+    "reply": "Style: an oil painting with visible brushstrokes, a cool muted palette, melancholic.\nScene: a bright russet red fox walks across undisturbed white snow in the fading light of dusk, its bushy tail trailing slightly behind it against the bare, sparse winter landscape.",
+    "prior": [
+     "Style: an oil painting with visible brushstrokes, a cool muted palette, melancholic.",
+     "Scene: a bright russet red fox walks across undisturbed white snow in the fading light of dusk, its bushy tail trailing slightly behind it against the bare, sparse winter landscape."
+    ]
+   },
+   {
+    "case": "titles",
+    "reply": "* Solitude at Twilight\n* Crimson Passage\n* The Edge of Daybreak\n* Ephemeral Crossing\n* Northern Respite",
+    "prior": [
+     "Style: an oil painting with visible brushstrokes, a cool muted palette, melancholic.",
+     "Scene: a bright russet red fox walks across undisturbed white snow in the fading light of dusk, its bushy tail trailing slightly behind it against the bare, sparse winter landscape."
+    ]
+   },
+   {
+    "case": "alternatives",
+    "reply": "- **Charcoal sketch**\nStyle: a charcoal sketch with smudged edges and deep blacks, highly textural and dramatic.\n\n- **Ukiyo-e woodblock print**\nStyle: an ukiyo-e woodblock print, flat areas of color with crisp outlines, ephemeral.\n\n- **Northern Renaissance tempera painting**\nStyle: a tempera painting from the Northern Renaissance, meticulous detail, jewel-toned and reserved.\n\n- **Impressionist oil painting**\nStyle: an impressionist oil painting, broken brushwork capturing light and atmosphere, vibrant yet fleeting.\n\n- **Black and white photography**\nStyle: a monochromatic photograph with high contrast, emphasizing texture and form.",
+    "prior": [
+     "Style: an oil painting with visible brushstrokes, a cool muted palette, melancholic.",
+     "Scene: a bright russet red fox walks across undisturbed white snow in the fading light of dusk, its bushy tail trailing slightly behind it against the bare, sparse winter landscape."
+    ]
+   },
+   {
+    "case": "details",
+    "reply": "**Description:** Art Nouveau was an international decorative style popular between 1890 and 1910. It drew heavy inspiration from natural forms, emphasizing sinuous lines, flowing curves, and organic motifs such as vines, flowers, insects, and the human figure intertwined with nature. The work often appears to reject straight lines in favor of whiplash curves. Techniques were diverse but frequently involved stained glass, wrought iron, mosaic, and decorative painting, aiming to unify all decorative arts\u2014from architecture to furniture to book illustration\u2014into a cohesive, beautiful whole. Color palettes tended toward jewel tones, earthy shades, and sometimes pastel combinations, always maintaining an elegant, ornamental quality that integrated structure with decoration.\n\n**Origin:** It arose in the late 19th century across Europe as a reaction against the academic historicism of earlier eras. Artists sought a modern style that was thoroughly contemporary while still paying homage to craftsmanship, aiming to elevate everyday manufactured objects to works of art.\n\n**Suits:** It serves subjects involving natural growth, feminine beauty, movement, and decorative complexity; it fights subjects requiring severe geometry, stark minimalism, or overwhelming industrialism.\n\n**Terms:** Whiplash curve, organic motif, sinuous line, integration of arts, *arabesque*.\n\n**Artists:** Gustav Klimt, Alphonse Mucha, Hector Guimard",
+    "prior": null
+   },
+   {
+    "case": "off topic",
+    "reply": "I am an Image Prompt Assistant and can only help you with generating or refining text-to-image prompts. I cannot answer general knowledge questions like that.",
+    "prior": null
+   },
+   {
+    "case": "titles supplied",
+    "reply": "* Solitude of the Wild\n* Crimson Against White\n* The Silent Wait\n* Ephemera of Winter Light\n* Fox's Vigil",
+    "prior": null
+   },
+   {
+    "case": "styles supplied",
+    "reply": "* **Japanese woodblock print**\nStyle: a Japanese woodblock print, defined by bold black outlines and flat fields of color, with a sense of patterned depth.\n\n* **Ukiyo-e style watercolor**\nStyle: an ukiyo-e style watercolor, using washed pigment to maintain the graphic quality while allowing soft transitions in tone.\n\n* **Northern Renaissance tempera painting**\nStyle: a northern renaissance tempera painting, characterized by meticulous detail and hard edges, applied over a matte ground with muted, earthy tones.\n\n* **Pop Art screen print**\nStyle: a pop art screen print, utilizing flat, unmodulated areas of bright color and bold black outlines in an intentionally artificial manner.\n\n* **Gustav Klimt mosaic panel**\nStyle: a gouache rendering that mimics the intricate tessellation of a mosaic panel, using gold leaf accents and organic, interwoven patterns to give structure to the surface.",
+    "prior": null
+   },
+   {
+    "case": "style name alone",
+    "reply": "**Description:** Characterized by organic forms derived from natural sources like flowers, vines, and insects, Art Nouveau eschews straight lines for sinuous, whiplash curves. Techniques often involve stained glass, wrought ironwork, mosaic tiling, and decorative painting that integrates structure with ornamentation. The palette tends toward muted jewel tones, deep greens, peacock blues, and warm golds, aiming for an overall feeling of luxuriant elegance and natural flow. **Origin:** It flourished across Europe between 1890 and 1910 as a deliberate reaction against the rigid historicism of previous art periods, seeking a modern style rooted in nature's vitality. **Suits:** Highly decorative interiors, elegant portraits, fashion motifs, and architectural facades; it struggles with starkly industrial or minimalist subjects. **Terms:** Whiplash curve, organic motif, asymmetry, stained glass luminosity, naturalistic curvature. **Artists:** Alphonse Mucha, Gustav Klimt, Hector Guimard",
+    "prior": null
+   },
+   {
+    "case": "titles alone",
+    "reply": "* The Architecture of Silence (Formal)\n* Echoes in the Empty Room (Elegiac)\n* Weight of Absence (Plain)\n* Committee on Peripheral Details (Dry)\n* Just Before the Last Light Fades (Wry)",
+    "prior": null
+   },
+   {
+    "case": "example not adopted",
+    "reply": "Style: a woodblock print with stark black lines and areas of flat color wash, evoking early twentieth-century Japanese printing techniques.\nScene: The intricate depiction of a peacock displaying its tail feathers among trailing vines and water lilies, set against a deep indigo backdrop.",
+    "prior": [
+     "Style: a stained glass mosaic with flowing organic lines and iridescent colored glass pieces, capturing the elegance of the turn of the century.",
+     "Scene: The intricate depiction of a peacock displaying its tail feathers among trailing vines and water lilies, set against a deep indigo backdrop."
+    ]
+   },
+   {
+    "case": "reverse photograph",
+    "reply": "Style: street photography with a desaturated palette, high contrast, and candid mood.\nScene: A solitary man wearing a long black coat stands on a wet pavement beside a bus shelter displaying a red and white sign on the left; the glass panels of the shelter reflect the overcast sky and the surrounding buildings in muted tones, with puddles reflecting the dull light across the foreground.",
+    "prior": null
+   },
+   {
+    "case": "reverse portrait",
+    "reply": "Style: an oil painting with deep shadows and warm, earthy tones, dramatic chiaroscuro lighting.\nScene: a man of middle age seated against a plain, dark brown background, seen in a three-quarter view, gazing directly forward with a serious, contemplative expression.",
+    "prior": null
+   },
+   {
+    "case": "reverse drawing",
+    "reply": "Style: black ink wash painting, fluid and expressive, deep umber and pale grey palette, minimalist.\nScene: A single pear rendered with gestural brushstrokes, featuring dark accents defining its shape against the lightly washed background.",
+    "prior": null
+   },
+   {
+    "case": "reverse engraving",
+    "reply": "Style: an intricate black and white pen and ink etching with cross-hatching detail, evoking the historical realism of 19th-century graphic art.\nScene: a bustling medieval marketplace scene filled with stalls draped in striped canvas awnings that recede into the distance; vendors display goods such as woven textiles, pottery, and barrels of produce; people of various classes are depicted engaged in commerce\u2014a blacksmith works near a wheeled cart on the left, while merchants haggle over wares under the shade awnings.",
+    "prior": null
+   },
+   {
+    "case": "reverse geometric",
+    "reply": "Style: an abstract geometric composition, flat planes of color, modernist.\nScene: a precise grid composed of fifteen circles arranged in five rows and three columns, alternating the colors orange, black, light gray, orange, light gray across each row horizontally, maintaining perfect alignment within crisp white dividing lines.",
+    "prior": null
+   },
+   {
+    "case": "reverse abstract",
+    "reply": "Style: thick impasto oil paint application, highly textural, saturated and stark color contrast.\nScene: Bold horizontal streaks of deep crimson red paint layered over heavy, matte black strokes and adjacent swaths of creamy off-white paint against an unadorned white ground.",
+    "prior": null
+   },
+   {
+    "case": "reverse collage",
+    "reply": "Style: mixed media collage, layered newsprint and watercolor washes, muted academic palette, reflective.\nScene: the profile portrait of a young person shown in severe detail across a background made of overlapping yellowed newsprint text fragments; below the portrait, horizontal blocks of washed-out pale blue and ochre paint create abstract, circular groupings that overlap each other, all contained within ragged, torn edges.",
+    "prior": null
+   },
+   {
+    "case": "reverse poster",
+    "reply": "Style: a graphic composition in the style of mid-century modern illustration, flat planes of saturated color and bold lines.\nScene: large overlapping circles dominate the frame, filled with solid blocks of red, orange, deep blue, and pale cream; one circular element on the lower left shows radiating concentric semicircles against a turquoise wavy background, while another slightly larger circle near the center right repeats this warm-toned sunburst pattern in sequence.",
+    "prior": null
+   },
+   {
+    "case": "reverse elevation",
+    "reply": "Style: a detailed architectural drawing with fine cross-hatching and sepia ink wash.\nScene: a grand sunroom with large rectangular window panes divided by mullions, featuring light wood frames, an internal hanging lamp suspended from the center, and a simple closed wooden door in the center section, set against a backdrop of overgrown greenery visible through the glass.",
+    "prior": null
+   },
+   {
+    "case": "reverse isometric",
+    "reply": "Style: highly detailed miniature diorama, dramatic volumetric lighting, gothic fantasy aesthetic.\nScene: an arcane, decrepit stone entranceway featuring curved arches and mouldings, lit by several small flickering candles placed on tiered steps and ledges; the central focus is a steep staircase of deep red worn stone leading up to a recessed arch framing a full, pale moon through visible skeletal branches; within the lower area stands a robed figure with dark skin and white accents facing slightly toward the viewer, while to the right, an elderly figure wearing a wide-brimmed hat stands next to a weathered stone basin filled with scattered orange and brown fallen leaves.",
+    "prior": null
+   },
+   {
+    "case": "reverse watercolor",
+    "reply": "Style: an illustration from a natural history book, detailed cross-section view, rich blues and greens.\nScene: A vividly colored kingfisher bird in mid-dive, its wings spread fully catching water droplets around it, and holding a silver fish in its beak. The background is an indistinct wash of pale parchment tones suggesting depth beneath the surface.",
+    "prior": null
+   },
+   {
+    "case": "reverse gouache",
+    "reply": "Style: gouache painting with matte texture and muted earthy tones, whimsical.\nScene: A young man in a light shirt and dark trousers leans over a large, dark slate table that frames the center of the image. On the table are several stylized planets orbiting a bright, yellow sun depicted by radiating lines. The man is using a stick to point toward the miniature solar system display on the surface.",
     "prior": null
    }
   ]
