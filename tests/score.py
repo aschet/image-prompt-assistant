@@ -203,7 +203,8 @@ def check_details(reply, prior):
             "suits label": "**Suits:**" in reply,
             "terms label": "**Terms:**" in reply,
             "artists label": "**Artists:**" in reply,
-            "example prompt": len(prompt_blocks(reply)) == 1}
+            # The list is the whole reply now; an example prompt is a separate request.
+            "no prompt": not prompt_blocks(reply)}
 
 
 
