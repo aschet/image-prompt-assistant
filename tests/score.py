@@ -173,7 +173,9 @@ def check_titles(reply, prior):
     # Titles arrive bolded often enough that emphasis must come off before judging their case.
     bullets = [re.sub(r"[*_`]", "", b).strip()
                for b in re.findall(r"^\s*[-*]\s+(.+)$", reply, re.M)]
-    return {"routes to titles": not fences(reply),
+    # A titles reply carries no prompt: not the working one echoed back, and not one invented
+    # for a prompt the user supplied in some other shape.
+    return {"routes to titles": not prompt_blocks(reply),
             "five titles": len(bullets) == 5,
             "title case": bool(bullets) and all(
                 sum(w[:1].isupper() for w in b.split()) >= max(1, len(b.split()) - 2)
@@ -270,6 +272,16 @@ def check_reverse(reply, prior, lit=True, hued=True):
     return out
 
 
+ASKING = re.compile(r"\?|\bplease (?:provide|share|paste|send)\b", re.I)
+
+
+def check_asks(reply, prior):
+    """A request with no prompt to act on asks which is meant. The failure this catches is not
+    silence but invention: a model that answers anyway has made up a scene to answer about."""
+    return {"asks": bool(ASKING.search(spoken(reply))),
+            "no prompt invented": not prompt_blocks(reply)}
+
+
 def check_offtopic(reply, prior):
     return {"answers it": "paris" in reply.lower(),
             "no refusal": not re.search(r"\b(?:I can(?:no|')t|I'm (?:only|unable)|off[- ]topic|"
@@ -309,6 +321,8 @@ MEDIUM = re.compile(r"\b(?:paintings?|photograph\w*|prints?|illustrations?|drawi
                     r"mezzotints?|crayons?|frescos?|murals?|posters?|render\w*)\b", re.I)
 
 FOX = "Expand this: a red fox crossing open snow at dusk"
+SUPPLIED = ("a red fox in profile on unbroken snow, thin dark trunks behind it, flat overcast "
+            "light, gouache")
 
 CASES = [
     Case("expand", [FOX], check_expand),
@@ -321,6 +335,19 @@ CASES = [
     Case("alternatives", [FOX, "What other styles would suit this?"], check_alternatives),
     Case("details", ["Tell me about Art Nouveau in detail"], check_details),
     Case("off topic", ["What is the capital of France?"], check_offtopic),
+
+    # Routing, where a request is ambiguous and the reply is the only evidence of how it was
+    # read. SUPPLIED is deliberately not in the two-line format: a prompt the user sends arrives
+    # in whatever shape the user keeps it in, and is answered from without being adopted.
+    Case("titles supplied", [f"A fitting title for: {SUPPLIED}"], check_titles),
+    Case("styles supplied", [f"What styles would suit this prompt: {SUPPLIED}"],
+         check_alternatives),
+    Case("style name alone", ["Art Nouveau"], check_details),
+    Case("titles alone", ["Give me titles"], check_asks),
+    # The example prompt shown for a style is not the working prompt, so there is nothing for
+    # the style change to act on and the reply asks rather than revising the example.
+    Case("example not adopted", ["Give me an example prompt for Art Nouveau",
+                                 "Make it a woodblock print"], check_asks),
 ]
 
 # Media fail differently, so the corpus spans them: a photograph, an oil portrait built on its
@@ -457,6 +484,15 @@ def selftest():
          "\n".join(f"*   **A Title Of {n}**" for n in "ABCDE"), {}),
         ("titles, lower case", check_titles,
          "\n".join(f"- a title of {n}" for n in "ABCDE"), {"title case": False}),
+        # A titles reply that echoes the prompt above the list has routed to two sections.
+        ("titles, prompt echoed", check_titles,
+         GOOD + "\n\n" + "\n".join(f"- A Title Of {n}" for n in "ABCDE"),
+         {"routes to titles": False}),
+        ("asks which prompt", check_asks, "Which prompt do you mean?", {}),
+        ("asks without a mark", check_asks, "Please provide the prompt you want titles for.",
+         {}),
+        ("answers instead of asking", check_asks, GOOD,
+         {"asks": False, "no prompt invented": False}),
         ("off topic", check_offtopic, "The capital of France is Paris.", {}),
         ("off topic refused", check_offtopic, "That is off-topic for me.",
          {"answers it": False, "no refusal": False}),
